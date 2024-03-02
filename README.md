@@ -6,7 +6,7 @@
   - NextJs 14
   - TypeScript
   - TailwindCSS
-  - MAterialUI
+  - MaterialUI
 - Backend
   - Java 8
   - Spring Boot
