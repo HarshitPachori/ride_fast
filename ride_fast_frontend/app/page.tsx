@@ -1,7 +1,15 @@
+import Banner from "./components/Banner";
+import CardVideoSection from "./components/CardVideoSection";
+import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
+
 export default function Home() {
   return (
-    <div>
-      <h1>Hello world</h1>
-    </div>
+    <>
+      <NavBar />
+      <Banner />
+      <CardVideoSection />
+      <Footer />
+    </>
   );
 }
