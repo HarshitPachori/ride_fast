@@ -1,0 +1,27 @@
+.bannerMiniContainer {
+  transform: translateY(-18rem);
+}
+
+.croppedImage {
+  width: 100%;
+  height: 400px;
+  background-image: url(https://s3-ap-southeast-1.amazonaws.com/ola-prod-website/hero-banner.webp);
+  background-size:cover;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 0% 100%);
+  
+}
+
+.searchOlaCabButton {
+  box-sizing: border-box;
+  width: 282px;
+  text-align: left;
+  background-image: url(https://s3-ap-southeast-1.amazonaws.com/ola-prod-website/ola_cabs_back.svg),
+    radial-gradient(
+      127.68% 2996.56% at 12.65% 127.68%,
+      #000000 0%,
+      #222222 100%
+    );
+  background-repeat: no-repeat;
+  background-position: bottom;
+  border: none;
+}
