@@ -6,6 +6,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 public class AppConstants {
+
+    public static final int EARTH_RADIUS = 6371;
+    public static final double RIDE_FAIR_AMOUNT = 10;
     public static final String JWT_TOKEN_SECRET = Base64.getEncoder().encodeToString(
             Keys.secretKeyFor(SignatureAlgorithm.HS256).getEncoded());
     public static final String REFRESH_TOKEN_SECRET = "";

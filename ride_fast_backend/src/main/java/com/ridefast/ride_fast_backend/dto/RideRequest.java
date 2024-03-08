@@ -13,8 +13,8 @@ public class RideRequest {
 
   private String pickupArea;
   private String destinationArea;
-  private Double pickupLatitude;
-  private Double pickupLongitude;
-  private Double destinationLatitude;
-  private Double destinationLongitude;
+  private double pickupLatitude;
+  private double pickupLongitude;
+  private double destinationLatitude;
+  private double destinationLongitude;
 }

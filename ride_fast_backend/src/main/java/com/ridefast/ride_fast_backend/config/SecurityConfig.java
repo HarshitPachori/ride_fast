@@ -19,7 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import com.ridefast.ride_fast_backend.filter.JwtAuthenticationFilter;
-import com.ridefast.ride_fast_backend.service.CustomUserDetailsService;
+// import com.ridefast.ride_fast_backend.service.CustomUserDetailsService;
 import com.ridefast.ride_fast_backend.util.JwtAuthenticationEntryPoint;
 
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
+    // private final CustomUserDetailsService customUserDetailsService;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
