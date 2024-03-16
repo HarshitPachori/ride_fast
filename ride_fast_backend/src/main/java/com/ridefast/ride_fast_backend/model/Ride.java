@@ -29,7 +29,7 @@ public class Ride {
     private Driver driver;
 
     @JsonIgnore
-    private List<Integer> declinedDrivers = new ArrayList<>();
+    private List<Long> declinedDrivers = new ArrayList<>();
 
     private Double pickupLatitude;
     private Double pickupLongitude;

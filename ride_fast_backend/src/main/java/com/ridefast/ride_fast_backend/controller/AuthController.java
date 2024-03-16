@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ridefast.ride_fast_backend.dto.DriverResponse;
+import com.ridefast.ride_fast_backend.dto.DriverSignUpRequest;
 import com.ridefast.ride_fast_backend.dto.JwtResponse;
 import com.ridefast.ride_fast_backend.dto.LoginRequest;
 import com.ridefast.ride_fast_backend.dto.SignUpRequest;
@@ -24,7 +26,7 @@ public class AuthController {
 
   private final AuthService authService;
 
-  @PostMapping("/register")
+  @PostMapping("/register/user")
   public ResponseEntity<UserResponse> signUpHandler(@RequestBody @Valid SignUpRequest signUpRequest) {
     UserResponse userResponse = authService.signUpUser(signUpRequest);
     return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
@@ -35,5 +37,11 @@ public class AuthController {
       throws ResourceNotFoundException {
     JwtResponse jwtResponse = authService.loginUser(loginRequest);
     return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
+  }
+
+  @PostMapping("/register/driver")
+  public ResponseEntity<DriverResponse> registerDriver(@RequestBody @Valid DriverSignUpRequest signUpRequest) {
+    DriverResponse driverResponse = authService.registerDriver(signUpRequest);
+    return new ResponseEntity<>(driverResponse, HttpStatus.CREATED);
   }
 }

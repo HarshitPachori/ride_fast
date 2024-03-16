@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ridefast.ride_fast_backend.dto.DriverResponse;
+import com.ridefast.ride_fast_backend.dto.DriverSignUpRequest;
 import com.ridefast.ride_fast_backend.dto.JwtResponse;
 import com.ridefast.ride_fast_backend.dto.LoginRequest;
 import com.ridefast.ride_fast_backend.dto.SignUpRequest;
@@ -17,11 +19,13 @@ import com.ridefast.ride_fast_backend.dto.UserResponse;
 import com.ridefast.ride_fast_backend.enums.UserRole;
 import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.exception.UserException;
+import com.ridefast.ride_fast_backend.model.Driver;
 import com.ridefast.ride_fast_backend.model.RefreshToken;
 import com.ridefast.ride_fast_backend.model.User;
 import com.ridefast.ride_fast_backend.repository.UserRepository;
 import com.ridefast.ride_fast_backend.service.AuthService;
 import com.ridefast.ride_fast_backend.service.CustomUserDetailsService;
+import com.ridefast.ride_fast_backend.service.DriverService;
 import com.ridefast.ride_fast_backend.service.RefreshTokenService;
 import com.ridefast.ride_fast_backend.util.JwtTokenHelper;
 
@@ -37,6 +41,7 @@ public class AuthServiceImpl implements AuthService {
   private final AuthenticationManager authenticationManager;
   private final CustomUserDetailsService userDetailsService;
 
+  private final DriverService driverService;
   private final PasswordEncoder passwordEncoder;
   private final ModelMapper modelMapper;
 
@@ -70,14 +75,14 @@ public class AuthServiceImpl implements AuthService {
 
     UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
 
-    RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getUsername(), UserRole.NORMAL_USER);
+    RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getUsername(), request.getRole());
 
     String jwtToken = jwtTokenHelper.generateToken(userDetails.getUsername());
 
     JwtResponse response = JwtResponse.builder()
         .accessToken(jwtToken)
         .refreshToken(refreshToken.getRefreshToken())
-        .type(UserRole.NORMAL_USER)
+        .type(request.getRole())
         .message("Login successfully : " + userDetails.getUsername())
         .build();
     return response;
@@ -92,6 +97,12 @@ public class AuthServiceImpl implements AuthService {
     } catch (BadCredentialsException e) {
       throw new BadCredentialsException("invalid username or password");
     }
+  }
+
+  @Override
+  public DriverResponse registerDriver(DriverSignUpRequest request) {
+    Driver registeredDriver = driverService.registerDriver(request);
+    return modelMapper.map(registeredDriver, DriverResponse.class);
   }
 
 }
