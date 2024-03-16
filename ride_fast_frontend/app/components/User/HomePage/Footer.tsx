@@ -9,9 +9,9 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <div className="mt-40">
+    <div className="mt-10 sm:mt-18">
       <div className="container py-8 px-5 ">
-        <div className="grid grid-cols-1 sm:flex justify-around ">
+        <div className="grid grid-cols-1  sm:flex justify-around ">
           <div className="footerLinks">
             <Image
               src="https://s3-ap-southeast-1.amazonaws.com/ola-prod-website/OLA.svg"
@@ -32,7 +32,7 @@ function Footer() {
                 <Link
                   href={"/"}
                   about=""
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-600 hover:text-gray-800"
                 >
                   Home
                 </Link>
@@ -41,7 +41,7 @@ function Footer() {
                 <Link
                   href={"/"}
                   about=""
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-600 hover:text-gray-800"
                 >
                   Book a Ride
                 </Link>
@@ -50,7 +50,7 @@ function Footer() {
                 <Link
                   href={"/"}
                   about=""
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-600 hover:text-gray-800"
                 >
                   About Us
                 </Link>
@@ -59,7 +59,7 @@ function Footer() {
                 <Link
                   href={"/"}
                   about=""
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-600 hover:text-gray-800"
                 >
                   Careers
                 </Link>
@@ -73,7 +73,7 @@ function Footer() {
                 <Link
                   href={"/"}
                   about=""
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-600 hover:text-gray-800"
                 >
                   Help Center
                 </Link>
@@ -82,7 +82,7 @@ function Footer() {
                 <Link
                   href={"/"}
                   about=""
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-600 hover:text-gray-800"
                 >
                   Contact Us
                 </Link>
@@ -91,7 +91,7 @@ function Footer() {
                 <Link
                   href={"/"}
                   about=""
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-600 hover:text-gray-800"
                 >
                   FAQs
                 </Link>
@@ -105,7 +105,7 @@ function Footer() {
                 <Link
                   href={"/"}
                   about=""
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-600 hover:text-gray-800"
                 >
                   Terms & Conditions
                 </Link>
@@ -114,7 +114,7 @@ function Footer() {
                 <Link
                   href={"/"}
                   about=""
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-600 hover:text-gray-800"
                 >
                   Privacy Policy
                 </Link>
@@ -125,7 +125,7 @@ function Footer() {
       </div>
       <div className="bg-gray-800 py">
         <div className="container mx-auto">
-          <p className="text-center text-gray-400 text-sm">
+          <p className="text-center text-gray-600 text-sm">
             &copy; {new Date().getFullYear()} Ola Cabs. All rights reserved.
           </p>
         </div>

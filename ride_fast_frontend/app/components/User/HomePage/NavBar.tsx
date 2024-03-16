@@ -20,7 +20,7 @@ function NavBar() {
               </Link>
             </div>
             <div>
-              <ul className="hidden sm:flex sm:items-center">
+              <ul className="hidden md:flex md:items-center">
                 <li className="mr-6">
                   <Link href="/" className="text-white">
                     OlaElectric
@@ -34,11 +34,11 @@ function NavBar() {
               </ul>
             </div>
           </div>
-          <div>
-            <button className="bg-gray-700 text-white hover:bg-gray-900 text-sm font-semibold px-4 py-3 rounded-md">
+          <div className="flex">
+            <button className="hidden sm:block bg-gray-700 text-white hover:bg-gray-900 text-sm font-semibold px-4 py-3 rounded-md">
               Book an Ola Cab
             </button>
-            <button className="bg-white hover:bg-gray-300 text-sm font-semibold px-4 py-3 ml-5 rounded-md ">
+            <button className="hidden sm:block  bg-white hover:bg-gray-300 text-sm font-semibold px-4 py-3 ml-5 rounded-md ">
               Free S1 Test Ride
             </button>
             <MenuIcon className="text-white ml-5 text-3xl  " />
