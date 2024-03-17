@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import com.ridefast.ride_fast_backend.filter.JwtAuthenticationFilter;
+import com.ridefast.ride_fast_backend.service.CustomUserDetailsService;
 // import com.ridefast.ride_fast_backend.service.CustomUserDetailsService;
 import com.ridefast.ride_fast_backend.util.JwtAuthenticationEntryPoint;
 
@@ -29,7 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    // private final CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -53,8 +54,8 @@ public class SecurityConfig {
                             }
                         }))
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/").permitAll()
+                        .requestMatchers( "/api/v1/auth/**").permitAll()
+                        .requestMatchers( "/swagger-ui/**", "/").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement((management) -> management
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -73,11 +74,11 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
-    // @Bean
-    // public DaoAuthenticationProvider daoAuthenticationProvider() {
-    // DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    // provider.setUserDetailsService(customUserDetailsService);
-    // provider.setPasswordEncoder(passwordEncoder());
-    // return provider;
-    // }
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    provider.setUserDetailsService(customUserDetailsService);
+    provider.setPasswordEncoder(passwordEncoder());
+    return provider;
+    }
 }

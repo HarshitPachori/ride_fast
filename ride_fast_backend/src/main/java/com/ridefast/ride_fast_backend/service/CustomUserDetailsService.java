@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.model.Driver;
 import com.ridefast.ride_fast_backend.model.User;
 import com.ridefast.ride_fast_backend.repository.DriverRepository;
@@ -27,24 +26,18 @@ public class CustomUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    try {
-      List<GrantedAuthority> authorities = new ArrayList<>();
-      User user = userRepository.findByEmail(username)
-          .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-      if (user != null) {
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
-      }
-      Driver driver = driverRepository.findByEmail(username).orElseThrow(
-          () -> new ResourceNotFoundException("Driver", "driver", username));
+    User user = userRepository.findByEmail(username).orElse(null);
+    if (user != null)
+     return buildUserDetails(user.getEmail(), user.getPassword());
+    Driver driver = driverRepository.findByEmail(username).orElse(null);
+    if (driver != null)
+      return buildUserDetails(driver.getEmail(), driver.getPassword());
+    throw new UsernameNotFoundException("User or Driver not found");
+  }
 
-      if (driver != null) {
-        return new org.springframework.security.core.userdetails.User(driver.getEmail(), driver.getPassword(),
-            authorities);
-      }
-    } catch (ResourceNotFoundException e) {
-
-    }
-    throw new UsernameNotFoundException("User not found with email :- " + username);
+  private UserDetails buildUserDetails(String username, String password) {
+    List<GrantedAuthority> authorities = new ArrayList<>();
+        return new org.springframework.security.core.userdetails.User(username, password, authorities);
   }
 
 }

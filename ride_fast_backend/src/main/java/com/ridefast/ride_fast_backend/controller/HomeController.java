@@ -9,7 +9,7 @@ import com.ridefast.ride_fast_backend.dto.MessageResponse;
 
 @RestController
 public class HomeController {
-  @GetMapping("/")
+  @GetMapping("/home")
   public ResponseEntity<MessageResponse> homeHandler() {
     return new ResponseEntity<>(new MessageResponse("Welcome to Ride Fast Backend System"), HttpStatus.OK);
   }

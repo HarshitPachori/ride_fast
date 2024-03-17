@@ -31,24 +31,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
 
+    /*
+     * 1. get token from header
+     * Token -> Bearer 15544578787fsh78f7hgf7fg857nhjgf74hgf.fhgfh.fhgfnj
+     */
+
     String requestToken = request.getHeader("Authorization");
+    System.out.println(request);
     String token = null;
     String username = null;
-    if (requestToken != null && requestToken.startsWith("Bearer")) {
+    if (requestToken != null && requestToken.startsWith("Bearer ")) {
+      // remove bearer word and space after it
       token = requestToken.substring(7);
       try {
         username = jwtTokenHelper.getUsernameFromToken(token);
       } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("Unable to get JWT Token");
+        System.out.println("Unable to get Jwt Token");
       } catch (ExpiredJwtException e) {
-        System.out.println("JWT Token is Expired");
+        System.out.println("Jwt Token is expired ");
       } catch (MalformedJwtException e) {
-        System.out.println("Inavlid JWT Token");
+        System.out.println("Invalid Jwt Token ");
       }
     } else {
-      System.out.println("JWT Token not begin with Bearer");
+      System.out.println("Jwt token does not begin with Bearer");
     }
 
+    // once we get the token now we validate it
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = userDetailsService.loadUserByUsername(username);
       if (jwtTokenHelper.validateToken(token, userDetails)) {
@@ -57,12 +65,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             null, userDetails.getAuthorities());
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
       } else {
-        System.out.println("Invalid JWT Token");
+        System.out.println("Invalid Jwt Token");
       }
     } else {
-      System.out.println("username is null or context is not null");
+      System.out.println("Username is null or context is not null");
     }
+
     filterChain.doFilter(request, response);
   }
 }

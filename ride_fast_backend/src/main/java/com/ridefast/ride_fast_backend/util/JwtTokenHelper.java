@@ -20,14 +20,16 @@ import java.util.function.Function;
 public class JwtTokenHelper {
 
     public String getUsernameFromToken(String token) {
+        if (token.startsWith("Bearer "))
+            token = token.substring(7);
         return getClaimsFromToken(token, Claims::getSubject);
     }
 
-    private Date getExpirationDateFromToken(String token) {
+    public Date getExpirationDateFromToken(String token) {
         return getClaimsFromToken(token, Claims::getExpiration);
     }
 
-    private <T> T getClaimsFromToken(String token, Function<Claims, T> claimsResolver) {
+    public <T> T getClaimsFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
@@ -56,14 +58,14 @@ public class JwtTokenHelper {
         return createToken(claims, username);
     }
 
-    private String createToken(Map<String, Object> claims, String username) {
+    public String createToken(Map<String, Object> claims, String username) {
         return Jwts.builder()
-                .setSubject(username)
                 .setClaims(claims)
+                .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * AppConstants.JWT_TOKEN_VALIDITY))
-                .signWith(getSignKey(), SignatureAlgorithm.HS256)
-                .compact();
+                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
+        // .signWith(getSignKey(), SignatureAlgorithm.HS512).compact();
     }
 
     private Key getSignKey() {

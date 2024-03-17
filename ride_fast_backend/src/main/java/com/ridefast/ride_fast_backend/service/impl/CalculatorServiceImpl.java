@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 
 import com.ridefast.ride_fast_backend.constant.AppConstants;
 import com.ridefast.ride_fast_backend.service.CalculatorService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CalculatorServiceImpl implements CalculatorService {
 
   @Override

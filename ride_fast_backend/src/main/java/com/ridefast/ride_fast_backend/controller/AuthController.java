@@ -14,6 +14,7 @@ import com.ridefast.ride_fast_backend.dto.LoginRequest;
 import com.ridefast.ride_fast_backend.dto.SignUpRequest;
 import com.ridefast.ride_fast_backend.dto.UserResponse;
 import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
+import com.ridefast.ride_fast_backend.exception.UserException;
 import com.ridefast.ride_fast_backend.service.AuthService;
 
 import jakarta.validation.Valid;
@@ -27,7 +28,7 @@ public class AuthController {
   private final AuthService authService;
 
   @PostMapping("/register/user")
-  public ResponseEntity<UserResponse> signUpHandler(@RequestBody @Valid SignUpRequest signUpRequest) {
+  public ResponseEntity<UserResponse> signUpHandler(@RequestBody @Valid SignUpRequest signUpRequest) throws UserException {
     UserResponse userResponse = authService.signUpUser(signUpRequest);
     return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
   }

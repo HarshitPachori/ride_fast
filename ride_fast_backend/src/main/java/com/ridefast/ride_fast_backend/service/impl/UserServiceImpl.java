@@ -24,8 +24,9 @@ public class UserServiceImpl implements UserService {
   @Override
   public User getRequestedUserProfile(String jwtToken) throws ResourceNotFoundException, UserException {
     String email = tokenHelper.getUsernameFromToken(jwtToken);
-    User user = usereRepository.findByEmail(email)
-        .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
+    User user = null;
+    if (usereRepository.findByEmail(email).isPresent())
+      user = usereRepository.findByEmail(email).get();
     if (user != null)
       return user;
     throw new UserException("Invalid Jwt Token");

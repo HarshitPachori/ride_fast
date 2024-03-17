@@ -46,14 +46,11 @@ public class AuthServiceImpl implements AuthService {
   private final ModelMapper modelMapper;
 
   @Override
-  public UserResponse signUpUser(SignUpRequest request) {
-    try {
-      boolean userPresent = userRepository.findByEmail(request.getEmail()).isPresent();
-      if (userPresent)
-        throw new UserException("User Already Exists with this email");
-    } catch (UserException e) {
-      e.printStackTrace();
-    }
+  public UserResponse signUpUser(SignUpRequest request) throws UserException {
+
+    boolean userPresent = userRepository.findByEmail(request.getEmail()).isPresent();
+    if (userPresent)
+      throw new UserException("User Already Exists with this email");
 
     String encodedPassword = passwordEncoder.encode(request.getPassword());
 

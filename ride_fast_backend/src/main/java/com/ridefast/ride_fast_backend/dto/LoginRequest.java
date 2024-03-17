@@ -4,6 +4,7 @@ import com.ridefast.ride_fast_backend.enums.UserRole;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,6 @@ public class LoginRequest {
   @NotEmpty(message = "password is required")
   private String password;
 
-  @NotEmpty(message = "user role is required")
+  @NotNull(message = "user role is required")
   private UserRole role;
 }
