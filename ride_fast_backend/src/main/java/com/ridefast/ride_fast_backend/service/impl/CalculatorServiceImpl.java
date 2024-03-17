@@ -17,9 +17,9 @@ public class CalculatorServiceImpl implements CalculatorService {
     double dLongitude = Math.toRadians(destinationLongitude - sourceLongitude);
     double a = Math.sin(dLatitude / 2) * Math.sin(dLatitude / 2)
         + Math.cos(Math.toRadians(sourceLatitude)) * Math.cos(Math.toRadians(destinationLatitude))
-        + Math.sin(dLongitude / 2) * Math.sin(dLatitude / 2);
+            * Math.sin(dLongitude / 2) * Math.sin(dLongitude / 2);
 
-    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    double c = 2 * Math.asin(Math.sqrt(a));
     return AppConstants.EARTH_RADIUS * c;
   }
 

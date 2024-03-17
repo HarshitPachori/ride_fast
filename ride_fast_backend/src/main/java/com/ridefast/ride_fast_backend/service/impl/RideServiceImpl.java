@@ -128,13 +128,13 @@ public class RideServiceImpl implements RideService {
 
     Duration duration = Duration.between(startTime, endTime);
 
-    long millisecond = duration.toMillis();
+    long seconds = duration.toSeconds();
 
     double fare = calculatorService.calculateFair(distance);
 
     ride.setDistance(Math.round(distance * 100.0) / 100.0);
     ride.setFare((double) Math.round(fare));
-    ride.setDuration(millisecond);
+    ride.setDuration(seconds);
     ride.setEndTime(LocalDateTime.now());
 
     Driver driver = ride.getDriver();

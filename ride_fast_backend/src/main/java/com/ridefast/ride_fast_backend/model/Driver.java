@@ -24,7 +24,7 @@ public class Driver {
     private String name;
     private String email;
     private String mobile;
-    private Double rating;
+    private Double rating = 0.0;
     private Double latitude;
     private Double longitude;
     private UserRole role;
