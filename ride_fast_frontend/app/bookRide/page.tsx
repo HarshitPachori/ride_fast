@@ -1,12 +1,13 @@
 import React from "react";
-import Layout from "../components/User/Layout/Layout";
-import BookRide from "./BookRide";
+import BookRide from "../../components/BookRide/BookRide";
+import Layout from "@/components/Layout/Layout";
+import GuardComponent from "@/components/GuardComponent";
 
 function page() {
   return (
-    <div>
+    <GuardComponent>
       <Layout children={<BookRide />}></Layout>
-    </div>
+    </GuardComponent>
   );
 }
 

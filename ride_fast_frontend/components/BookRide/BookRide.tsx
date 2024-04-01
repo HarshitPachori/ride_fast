@@ -1,9 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import BookRideNavBar from "./BookRideNavBar";
 import { Button } from "@mui/material";
+import AvailableCab from "./AvailableCabs";
+import SearchResult from "./SearchResult";
 
 const validationSchema = Yup.object().shape({
   pickupLocation: Yup.string().required("Pickup location is required"),
@@ -13,6 +15,8 @@ const validationSchema = Yup.object().shape({
 });
 
 function BookRide() {
+  const [activeField, setActiveField] = useState("");
+
   const handleOnSubmit = (values: { pickupLocation: string }) => {
     console.log(values);
   };
@@ -27,7 +31,10 @@ function BookRide() {
       if (formik.isValid) handleOnSubmit(values);
     },
   });
-  const onFocused = () => {};
+  const onFocused = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    setActiveField(name);
+  };
   return (
     <div className="w-full">
       <BookRideNavBar />
@@ -50,7 +57,19 @@ function BookRide() {
                 onBlur={formik.handleBlur}
                 onFocus={onFocused}
               />
+              {activeField === "pickupLocation" &&
+                formik.values?.pickupLocation?.length > 0 && (
+                  <div className="">
+                    <SearchResult
+                      areaKey="pickupArea"
+                      latitude_key="pickupLatitude"
+                      longitude_key="pickupLongitude"
+                      setActiveField={activeField}
+                    />
+                  </div>
+                )}
             </div>
+
             {formik.touched.pickupLocation && formik.errors.pickupLocation && (
               <div>
                 <p className="text-xs text-red-500 px-2">
@@ -76,6 +95,17 @@ function BookRide() {
                 onBlur={formik.handleBlur}
                 onFocus={onFocused}
               />
+              {activeField === "destinationLocation" &&
+                formik.values?.destinationLocation?.length > 0 && (
+                  <div className="">
+                    <SearchResult
+                      areaKey="destinationArea"
+                      latitude_key="destinationLatitude"
+                      longitude_key="destinationLongitude"
+                      setActiveField={activeField}
+                    />
+                  </div>
+                )}
             </div>
             {formik.touched.destinationLocation &&
               formik.errors.destinationLocation && (
@@ -87,7 +117,7 @@ function BookRide() {
               )}
           </div>
           <Button
-            className="bg-purple-700"
+            className="bg-[#120e43e3] hover:bg-[#120E43] "
             sx={{ width: "100%", padding: ".7rem 0rem" }}
             variant="contained"
             type="submit"
@@ -96,6 +126,17 @@ function BookRide() {
             Find Driver
           </Button>
         </form>
+      </div>
+
+      <div className="-z-10 px-2 lg:px-5 mt-5">
+        <p className="">Available Cabs</p>
+        <div className="space-y-5">
+          <AvailableCab />
+          <AvailableCab />
+          <AvailableCab />
+          <AvailableCab />
+          <AvailableCab />
+        </div>
       </div>
     </div>
   );

@@ -15,9 +15,10 @@ function Banner() {
           Moving people, and the world
         </p>
         <div className="py-3 bg-white w-[25rem] flex space-x-2 :space-x-7 justify-around ">
-          <p className="">Daily</p>
-          <p className="">Rental</p>
-          <p className="">OutStations</p>
+          <p className="cursor-pointer">Daily</p>
+          <span className="h-1 w-[3rem] text-black"></span>
+          <p className="cursor-pointer">Rental</p>
+          <p className="cursor-pointer">OutStations</p>
         </div>
         <div className="bg-slate-100 pt-5 w-[25rem] md:w-auto">
           <div className="flex flex-col md:flex-row items-center justify-around space-y-2 md:space-y-0">
