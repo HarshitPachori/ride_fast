@@ -20,6 +20,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider children={children} />
+
+        {/* {children} */}
       </body>
     </html>
   );

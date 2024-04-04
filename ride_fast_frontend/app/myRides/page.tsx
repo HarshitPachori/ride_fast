@@ -6,6 +6,8 @@ import React from "react";
 function page() {
   return (
     <GuardComponent>
+
+      
       <Layout children={<Rides />} />
     </GuardComponent>
   );

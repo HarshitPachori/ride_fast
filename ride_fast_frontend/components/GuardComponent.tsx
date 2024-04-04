@@ -1,14 +1,14 @@
 "use client";
+import { useAppSelector } from "@/utils/store/store";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 function GuardComponent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const jwt =
-    typeof localStorage !== undefined ? localStorage.getItem("token") : null;
+  const token = useAppSelector((state) => state.auth.token);
   useEffect(() => {
-    if (!jwt) router.push("/login");
-  },[jwt]);
+    if (!token || token === "") router.push("/login");
+  }, [token]);
   return <>{children}</>;
 }
 
