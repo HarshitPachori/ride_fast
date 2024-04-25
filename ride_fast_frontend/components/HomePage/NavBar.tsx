@@ -2,10 +2,11 @@
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 function NavBar() {
   const [menuActive, setMenuActive] = useState(false);
+  const router = useRouter();
   return (
     <div className="bg-black py-4  sticky top-0 z-10">
       <div className="container mx-auto px-4">
@@ -13,12 +14,6 @@ function NavBar() {
           <div className="flex items-center">
             <div className="flex items-center mx-5">
               <Link href="/">
-                {/* <Image
-                  src="https://s3-ap-southeast-1.amazonaws.com/ola-prod-website/ola-white-logo.svg"
-                  alt="Ola Logo"
-                  height={50}
-                  width={50}
-                /> */}
                 <h1
                   className="text-slate-200
                 00
@@ -47,7 +42,10 @@ function NavBar() {
             </div>
           </div>
           <div className="flex">
-            <button className="hidden sm:block bg-gray-700 text-white hover:bg-gray-900 text-sm font-semibold px-4 py-3 rounded-md">
+            <button
+              className="hidden sm:block bg-gray-700 text-white hover:bg-gray-900 text-sm font-semibold px-4 py-3 rounded-md"
+              onClick={() => router.push("/bookRide")}
+            >
               Book a RideFast Cab
             </button>
             <button className="hidden sm:block  bg-white hover:bg-gray-300 text-sm font-semibold px-4 py-3 ml-5 rounded-md ">

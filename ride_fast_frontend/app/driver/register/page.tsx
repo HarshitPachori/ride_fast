@@ -1,9 +1,9 @@
-import React from 'react'
+import Layout from "@/components/Layout/Layout";
+import RegisterDriverForm from "@/components/RegisterDriverForm";
+import React from "react";
 
 function page() {
-  return (
-    <div>Register driver</div>
-  )
+  return <Layout children={<RegisterDriverForm />} />;
 }
 
-export default page
+export default page;

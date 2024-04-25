@@ -2,6 +2,7 @@ package com.ridefast.ride_fast_backend.service.impl;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
 
   private final UserRepository usereRepository;
   private final JwtTokenHelper tokenHelper;
+  private final ModelMapper modelMapper;
 
   @Override
   public User getRequestedUserProfile(String jwtToken) throws ResourceNotFoundException, UserException {
@@ -35,6 +37,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<Ride> getCompletedRides(Long userId) {
     List<Ride> completedRides = usereRepository.getCompletedRides(userId);
+  
     return completedRides;
   }
 

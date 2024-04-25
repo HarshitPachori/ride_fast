@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ridefast.ride_fast_backend.dto.RideDto;
 import com.ridefast.ride_fast_backend.dto.UserResponse;
 import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.exception.UserException;
@@ -43,10 +44,11 @@ public class UserController {
   }
 
   @GetMapping("/rides/completed")
-  public ResponseEntity<List<Ride>> rideCompletedHandler(@RequestHeader("Authorization") String jwtToken)
+  public ResponseEntity<List<RideDto>> rideCompletedHandler(@RequestHeader("Authorization") String jwtToken)
       throws ResourceNotFoundException, UserException {
     User user = userService.getRequestedUserProfile(jwtToken);
-    List<Ride> completedRides = userService.getCompletedRides(user.getId());
+    List<Ride> rides = userService.getCompletedRides(user.getId());
+    List<RideDto> completedRides = rides.stream().map((ride) -> modelMapper.map(ride, RideDto.class)).toList();
     return new ResponseEntity<>(completedRides, HttpStatus.OK);
   }
 

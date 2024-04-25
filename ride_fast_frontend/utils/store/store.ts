@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "@/utils/slices/authSlice";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import rideReducer from "@/utils/slices/rideSlice";
+import { useDispatch, useSelector } from "react-redux";
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    ride: rideReducer,
   },
 });
 

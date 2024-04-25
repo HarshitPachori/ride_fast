@@ -21,7 +21,9 @@ function BookRideNavBar() {
   const handleSidebarClose = () => setSidebarOpen(!sidebarOpen);
   const dispatch = useAppDispatch();
   const jwt =
-    typeof localStorage !== undefined ? localStorage.getItem("token") : null;
+    typeof localStorage !== "undefined" ? localStorage.getItem("token") : null;
+  console.log(jwt);
+
   const user = useAppSelector((state) => state.auth.user);
   useEffect(() => {
     if (!jwt) return;

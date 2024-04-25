@@ -28,6 +28,7 @@ function Layout({ children }: Props) {
             sizes="100"
             height={0}
             width={0}
+            priority
           />
         </Grid>
       </Grid>

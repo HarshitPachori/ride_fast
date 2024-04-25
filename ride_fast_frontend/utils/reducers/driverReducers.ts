@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const acceptRide = createAsyncThunk(
-  "driver/acceptRide",
-  async function () {}
-);
+export const createDriver = createAsyncThunk("driver/createDriver",async(driverData,{rejectWithValue})=>{
+  
+})

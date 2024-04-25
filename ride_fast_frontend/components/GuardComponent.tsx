@@ -7,9 +7,9 @@ function GuardComponent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const token = useAppSelector((state) => state.auth.token);
   useEffect(() => {
-    if (!token || token === "") router.push("/login");
+    if (!token || token === "") router.replace("/login");
   }, [token]);
-  return <>{children}</>;
+  return token ? <>{children}</> : null;
 }
 
 export default GuardComponent;

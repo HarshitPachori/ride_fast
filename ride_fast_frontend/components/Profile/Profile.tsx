@@ -9,11 +9,11 @@ import {
   ContactPhone,
   Wifi,
 } from "@mui/icons-material";
-import RideCar from "../RideCar";
 import { useAppDispatch, useAppSelector } from "@/utils/store/store";
 import { userProfile } from "@/utils/reducers/authReducers";
 import { useDispatch } from "react-redux";
 import { logout } from "@/utils/slices/authSlice";
+import RideCar from "../RideCar";
 
 function Profile() {
   const router = useRouter();

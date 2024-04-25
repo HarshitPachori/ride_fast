@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import RideCar from "./RideCar";
 import { useRouter } from "next/navigation";
 
 import { West } from "@mui/icons-material";
+import RideCar from "./RideCar";
 
 function Rides() {
   const ride = {

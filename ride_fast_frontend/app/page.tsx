@@ -1,3 +1,4 @@
+import CustomLoader, { CircularProgressBar } from "@/components/CustomLoader";
 import Banner from "../components/HomePage/Banner";
 import CardVideoSection from "../components/HomePage/CardVideoSection";
 import Footer from "../components/HomePage/Footer";
@@ -8,8 +9,15 @@ export default function Home() {
     <>
       <NavBar />
       <Banner />
+      <CircularProgressBar />
       <CardVideoSection />
       <Footer />
     </>
   );
 }
+
+
+
+
+
+

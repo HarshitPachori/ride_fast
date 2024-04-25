@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import * as yup from "yup";
+import { CircularProgressBar } from "./CustomLoader";
 
 const validationSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("email is required"),
@@ -26,6 +27,8 @@ const validationSchema = yup.object().shape({
 function LoginForm() {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const isLoading = useAppSelector((state) => state.auth.isLoading);
+
   const goBack = () => {
     router.back();
   };
@@ -41,10 +44,15 @@ function LoginForm() {
       if (formik.isValid) {
         try {
           const response = await dispatch(loginUser({ email, password, role }));
-          if (response.payload.error) toast.error(response.payload.message);
-          else toast.success(response.payload.message);
+          if (response.payload.error) {
+            toast.error(response.payload.message);
+          } else if (response.payload === "Internal Server Error") {
+            toast.error(response.payload);
+          } else {
+            toast.success(response.payload.message);
+          }
         } catch (error) {
-          toast.success("An error occurred while logging in");
+          toast.error("An error occurred while logging in");
         }
       }
     },
@@ -78,6 +86,7 @@ function LoginForm() {
         <form
           className="w-[90vw] sm:w-[60vw] lg:w-[40vw] p-2"
           onSubmit={formik.handleSubmit}
+          method="POST"
         >
           <TextField
             label="Email"
@@ -135,7 +144,7 @@ function LoginForm() {
             type="submit"
             className="w-full bg-gray-800 hover:bg-gray-900 my-3"
           >
-            Login
+            {isLoading ? <CircularProgressBar /> : "Login"}
           </Button>
         </form>
         <div className="flex w-full justify-center">

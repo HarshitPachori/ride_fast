@@ -20,7 +20,7 @@ const validationSchema = yup.object().shape({
     .min(8, "password should be of atleast 8 characters")
     .required("password is required"),
 });
-function RegisterForm() {
+function RegisterDriverForm() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.auth.isLoading);
@@ -31,31 +31,41 @@ function RegisterForm() {
     initialValues: {
       email: "",
       password: "",
-      fullName: "",
+      name: "",
       mobile: "",
+      location: "",
+      licenseNumber: "",
+      licenseState: "",
+      licenseExpirationDate: "",
+      company: "",
+      model: "",
+      color: "",
+      year: "",
+      capacity: "",
+      licensePlate: "",
     },
     validationSchema,
     onSubmit: async (values) => {
-      const { email, password, mobile, fullName } = values;
-      if (formik.isValid) {
-        try {
-          const response = await dispatch(
-            registerUser({ email, password, mobile, fullName })
-          );
-          if (response.payload.error) {
-            toast.error(response.payload.message);
-          } else if (response.payload === "Internal Server Error") {
-            toast.error(response.payload);
-          } else {
-            toast.success(
-              response.payload.message || "Registered Successfully"
-            );
-            router.push("/login");
-          }
-        } catch (error) {
-          toast.error("An error occured while registering");
-        }
-      }
+      // const { email, password, mobile, name } = values;
+      // if (formik.isValid) {
+      // try {
+      // const response = await dispatch(
+      // registerUser({ email, password, mobile, name })
+      // );
+      // if (response.payload.error) {
+      // toast.error(response.payload.message);
+      // } else if (response.payload === "Internal Server Error") {
+      // toast.error(response.payload);
+      // } else {
+      //     toast.success(
+      //       response.payload.message || "Registered Successfully"
+      //     );
+      //     router.push("/login");
+      //   }
+      // } catch (error) {
+      //   toast.error("An error occured while registering");
+      // }
+      // }
     },
   });
 
@@ -75,17 +85,17 @@ function RegisterForm() {
           onSubmit={formik.handleSubmit}
         >
           <TextField
-            label="Full Name"
-            name="fullName"
+            label="Name"
+            name="name"
             type="text"
             variant="outlined"
             fullWidth
             margin="normal"
             placeholder="John Doe"
-            value={formik.values.fullName}
+            value={formik.values.name}
             onChange={formik.handleChange}
-            error={formik.touched.fullName && Boolean(formik.errors.fullName)}
-            helperText={formik.touched.fullName && formik.errors.fullName}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
             sx={sx}
           />
           <TextField
@@ -131,6 +141,20 @@ function RegisterForm() {
             helperText={formik.touched.password && formik.errors.password}
             sx={sx}
           />
+
+          <TextField
+            label="License Expiration Date"
+            name="email"
+            type="date"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+            sx={sx}
+          />
           <Button
             sx={{ padding: ".9rem 0rem" }}
             variant="contained"
@@ -142,15 +166,6 @@ function RegisterForm() {
         </form>
 
         <div className="flex flex-col w-full justify-center items-center">
-          <Button
-            sx={{ padding: ".9rem 0rem" }}
-            variant="contained"
-            type="submit"
-            className="w-[87vw] sm:w-[58vw] lg:w-[39vw]  bg-gray-800 hover:bg-gray-900 my-2"
-            onClick={() => router.push("/driver/register")}
-          >
-            Register as a Driver
-          </Button>
           <p className="flex items-center text-center text-slate-700 my-2">
             Already have an account ?{" "}
             <Button
@@ -166,4 +181,4 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
+export default RegisterDriverForm;

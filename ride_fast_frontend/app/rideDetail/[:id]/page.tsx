@@ -1,11 +1,11 @@
 "use client";
+import React from "react";
 
 import GuardComponent from "@/components/GuardComponent";
 import Layout from "@/components/Layout/Layout";
 import RideDetail from "@/components/RideDetail/RideDetail";
-import React, { ReactPropTypes } from "react";
 
-function page(props: React.FC<ReactPropTypes>) {
+function page() {
   const ride = {
     rideDetails: {
       id: 458996324444,
