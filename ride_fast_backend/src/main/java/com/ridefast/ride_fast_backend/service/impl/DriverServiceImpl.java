@@ -104,10 +104,11 @@ public class DriverServiceImpl implements DriverService {
   }
 
   @Override
-  public Ride getDriverCurrentRide(Long driverId) throws ResourceNotFoundException {
-    Driver driver = driverRepository.findById(driverId)
-        .orElseThrow(() -> new ResourceNotFoundException("driver", "id", driverId));
-    return driver.getCurrentRide();
+  public List<Ride> getDriverCurrentRide(Long driverId) throws ResourceNotFoundException {
+    // Driver driver = driverRepository.findById(driverId)
+    // .orElseThrow(() -> new ResourceNotFoundException("driver", "id", driverId));
+    List<Ride> currentRides = driverRepository.getCurrentRides(driverId);
+    return currentRides;
   }
 
   @Override
@@ -118,6 +119,14 @@ public class DriverServiceImpl implements DriverService {
   @Override
   public List<Ride> getCompletedRides(Long driverId) {
     return driverRepository.getCompletedRides(driverId);
+  }
+
+  @Override
+  public List<Ride> getDriverStartedRide(String jwtToken) throws ResourceNotFoundException {
+    String email = tokenHelper.getUsernameFromToken(jwtToken);
+    Driver driver = driverRepository.findByEmail(email)
+        .orElseThrow(() -> new ResourceNotFoundException("Driver", "username", email));
+    return driverRepository.getstartedRides(driver.getId());
   }
 
 }

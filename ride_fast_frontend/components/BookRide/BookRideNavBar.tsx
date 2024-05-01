@@ -10,25 +10,22 @@ import {
   Button,
   Drawer,
 } from "@mui/material";
-import { deepOrange } from "@mui/material/colors";
 import { Menu } from "@mui/icons-material";
 import DrawerList from "./DrawerList";
 import { useAppDispatch, useAppSelector } from "@/utils/store/store";
 import { userProfile } from "@/utils/reducers/authReducers";
+import { useRouter } from "next/navigation";
 
 function BookRideNavBar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const handleSidebarClose = () => setSidebarOpen(!sidebarOpen);
   const dispatch = useAppDispatch();
-  const jwt =
-    typeof localStorage !== "undefined" ? localStorage.getItem("token") : null;
-  console.log(jwt);
-
-  const user = useAppSelector((state) => state.auth.user);
+  const router = useRouter();
+  const auth = useAppSelector((state) => state.auth);
   useEffect(() => {
-    if (!jwt) return;
-    dispatch(userProfile(jwt));
-  }, [jwt]);
+    if (!auth.token) return;
+    dispatch(userProfile(auth.token));
+  }, []);
   return (
     <Box>
       <AppBar
@@ -51,12 +48,13 @@ function BookRideNavBar() {
             RideFast Cab
           </Typography>
 
-          {true ? (
+          {auth.user !== null ? (
             <Avatar
-              className="cursor-pointer"
-              sx={{ bgColor: deepOrange[500] }}
+              className="cursor-pointer "
+              sx={{ bgcolor: "red" }}
+              onClick={() => router.push("/profile")}
             >
-              A
+              {auth?.user?.fullName.charAt(0)}
             </Avatar>
           ) : (
             <Button color="inherit">Login</Button>

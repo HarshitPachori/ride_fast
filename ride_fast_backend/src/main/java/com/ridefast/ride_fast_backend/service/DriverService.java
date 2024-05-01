@@ -16,7 +16,9 @@ public interface DriverService {
 
   Driver getRequestedDriverProfile(String jwtToken) throws ResourceNotFoundException;
 
-  Ride getDriverCurrentRide(Long driverId) throws ResourceNotFoundException;
+  List<Ride> getDriverCurrentRide(Long driverId) throws ResourceNotFoundException;
+
+  List<Ride> getDriverStartedRide(String jwtToken) throws ResourceNotFoundException;
 
   List<Ride> getAllocatedRides(Long driverId);
 

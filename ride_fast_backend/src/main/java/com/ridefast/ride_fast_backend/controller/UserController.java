@@ -20,6 +20,7 @@ import com.ridefast.ride_fast_backend.model.User;
 import com.ridefast.ride_fast_backend.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -50,6 +51,20 @@ public class UserController {
     List<Ride> rides = userService.getCompletedRides(user.getId());
     List<RideDto> completedRides = rides.stream().map((ride) -> modelMapper.map(ride, RideDto.class)).toList();
     return new ResponseEntity<>(completedRides, HttpStatus.OK);
+  }
+
+  @GetMapping("{userId}/rides/current")
+  public ResponseEntity<List<RideDto>> getMethodName(@PathVariable Long userId) throws ResourceNotFoundException {
+    List<Ride> userCurrentRide = userService.getUserCurrentRide(userId);
+    List<RideDto> list = userCurrentRide.stream().map((ride) -> modelMapper.map(ride, RideDto.class)).toList();
+    return new ResponseEntity<>(list, HttpStatus.OK);
+  }
+
+  @GetMapping("{userId}/rides/requested")
+  public ResponseEntity<List<RideDto>> requestRide(@PathVariable Long userId) throws ResourceNotFoundException {
+    List<Ride> userCurrentRide = userService.getUserRequestedRide(userId);
+    List<RideDto> list = userCurrentRide.stream().map((ride) -> modelMapper.map(ride, RideDto.class)).toList();
+    return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
 }

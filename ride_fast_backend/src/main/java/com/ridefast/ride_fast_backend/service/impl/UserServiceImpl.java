@@ -37,13 +37,24 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<Ride> getCompletedRides(Long userId) {
     List<Ride> completedRides = usereRepository.getCompletedRides(userId);
-  
+
     return completedRides;
   }
 
   @Override
   public User getUserById(Long userId) throws ResourceNotFoundException {
     return usereRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
+  }
+
+  @Override
+  public List<Ride> getUserCurrentRide(Long userId) {
+
+    return usereRepository.getCurrentRides(userId);
+  }
+
+  @Override
+  public List<Ride> getUserRequestedRide(Long userId) throws ResourceNotFoundException {
+    return usereRepository.getRequestedRides(userId);
   }
 
 }

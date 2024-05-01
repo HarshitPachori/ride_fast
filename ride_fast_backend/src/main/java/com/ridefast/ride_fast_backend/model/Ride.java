@@ -22,7 +22,7 @@ public class Ride {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -51,6 +51,6 @@ public class Ride {
     private Integer otp;
 
     @Embedded
-    private PaymentDetails paymentDetails;
+    private PaymentDetails paymentDetails = new PaymentDetails();
 
 }

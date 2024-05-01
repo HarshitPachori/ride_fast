@@ -1,5 +1,6 @@
 package com.ridefast.ride_fast_backend.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ridefast.ride_fast_backend.dto.DriverResponse;
+import com.ridefast.ride_fast_backend.dto.RideDto;
+import com.ridefast.ride_fast_backend.enums.RideStatus;
 import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.model.Driver;
 import com.ridefast.ride_fast_backend.model.Ride;
@@ -36,25 +39,44 @@ public class DriverController {
   }
 
   @GetMapping("/{driverId}/current_ride")
-  public ResponseEntity<Ride> getDriverCurrentRideHandler(@PathVariable long driverId)
+  public ResponseEntity<List<RideDto>> getDriverCurrentRideHandler(@RequestHeader("Authorization") String jwtToken,
+      @PathVariable long driverId)
       throws ResourceNotFoundException {
-    Ride driverCurrentRide = driverService.getDriverCurrentRide(driverId);
-    return new ResponseEntity<>(driverCurrentRide, HttpStatus.OK);
+    Driver driver = driverService.getRequestedDriverProfile(jwtToken);
+    List<Ride> driverCurrentRide = driverService.getDriverCurrentRide(driver.getId());
+    List<RideDto> list = driverCurrentRide.stream().map((ride -> modelMapper.map(ride, RideDto.class))).toList();
+
+    return new ResponseEntity<>(list, HttpStatus.OK);
+  }
+
+  @GetMapping("/rides/started")
+  public ResponseEntity<List<RideDto>> getDriverStartedRideHandler(@RequestHeader("Authorization") String jwtToken)
+      throws ResourceNotFoundException {
+    List<Ride> driverStartedRide = driverService.getDriverStartedRide(jwtToken);
+    List<RideDto> list = driverStartedRide.stream().map((ride -> modelMapper.map(ride, RideDto.class))).toList();
+
+    return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
   @GetMapping("/rides/allocated")
-  public ResponseEntity<List<Ride>> getAllocatedRideHandler(@RequestHeader("Authorization") String jwtToken)
+  public ResponseEntity<List<RideDto>> getAllocatedRideHandler(@RequestHeader("Authorization") String jwtToken)
       throws ResourceNotFoundException {
     Driver driver = driverService.getRequestedDriverProfile(jwtToken);
     List<Ride> allocatedRides = driverService.getAllocatedRides(driver.getId());
-    return new ResponseEntity<>(allocatedRides, HttpStatus.OK);
+    List<RideDto> rides = allocatedRides
+        .stream()
+        .map((ride) -> modelMapper.map(ride, RideDto.class)).toList();
+    return new ResponseEntity<>(rides, HttpStatus.OK);
   }
 
   @GetMapping("/rides/completed")
-  public ResponseEntity<List<Ride>> getCompletedRideHandler(@RequestHeader("Authorization") String jwtToken)
+  public ResponseEntity<List<RideDto>> getCompletedRideHandler(@RequestHeader("Authorization") String jwtToken)
       throws ResourceNotFoundException {
     Driver driver = driverService.getRequestedDriverProfile(jwtToken);
     List<Ride> completedRides = driverService.getCompletedRides(driver.getId());
-    return new ResponseEntity<>(completedRides, HttpStatus.OK);
+    List<RideDto> rides = completedRides
+        .stream()
+        .map((ride) -> modelMapper.map(ride, RideDto.class)).toList();
+    return new ResponseEntity<>(rides, HttpStatus.OK);
   }
 }

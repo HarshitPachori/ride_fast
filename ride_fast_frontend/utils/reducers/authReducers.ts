@@ -25,7 +25,6 @@ export const registerUser = createAsyncThunk(
       if (axios.isAxiosError(error)) {
         return rejectWithValue(error.response?.data);
       } else {
-        console.log("error occured : " + error);
         return rejectWithValue("An Error Occured");
       }
     }
@@ -33,14 +32,13 @@ export const registerUser = createAsyncThunk(
 );
 export const registerDriver = createAsyncThunk(
   "auth/registerDriver",
-  async (userData, { rejectWithValue }) => {
+  async (driverData: {}, { rejectWithValue }) => {
     try {
-      const reponse = await axios.post(registerDriverUrl, userData);
+      const reponse = await axios.post(registerDriverUrl, driverData);
       return reponse.data;
     } catch (error) {
       if (axios.isAxiosError(error))
         return rejectWithValue(error.response?.data);
-      console.log("error : " + error);
       return rejectWithValue("UnKnown Error");
     }
   }
@@ -58,7 +56,6 @@ export const loginUser = createAsyncThunk(
     } catch (error) {
       if (axios.isAxiosError(error))
         return rejectWithValue(error.response?.data);
-      console.log("error : " + error);
       return rejectWithValue("An Unknown Error Occured");
     }
   }
@@ -76,21 +73,23 @@ export const userProfile = createAsyncThunk(
     } catch (error) {
       if (axios.isAxiosError(error))
         return rejectWithValue(error.response?.data);
-      console.log("error : " + error);
       return rejectWithValue("An Unknown error occured");
     }
   }
 );
 export const driverProfile = createAsyncThunk(
   "auth/driverProfile",
-  async (token, { rejectWithValue }) => {
+  async (token: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/api/v1/driver/profile");
+      const response = await axios.get("/api/v1/driver/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error))
         return rejectWithValue(error.response?.data);
-      console.log("error : " + error);
       return rejectWithValue("An unknown error occured");
     }
   }

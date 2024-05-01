@@ -16,4 +16,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select r from Ride r where r.status=COMPLETED and r.user.id=:userId")
     public List<Ride> getCompletedRides(
             @Param("userId") Long userId);
+
+    @Query("select r from Ride r where r.status=ACCEPTED and r.user.id=:userId")
+    public List<Ride> getCurrentRides(@Param("userId") Long userId);
+
+    @Query("select r from Ride r where r.status=REQUESTED and r.user.id=:userId")
+    public List<Ride> getRequestedRides(@Param("userId") Long userId);
 }

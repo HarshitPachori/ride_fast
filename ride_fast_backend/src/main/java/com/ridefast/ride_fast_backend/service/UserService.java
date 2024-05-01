@@ -15,4 +15,8 @@ public interface UserService {
   User getUserById(Long userId) throws ResourceNotFoundException;
 
   List<Ride> getCompletedRides(Long userId);
+
+  List<Ride> getUserCurrentRide(Long userId) throws ResourceNotFoundException;
+
+  List<Ride> getUserRequestedRide(Long userId) throws ResourceNotFoundException;
 }

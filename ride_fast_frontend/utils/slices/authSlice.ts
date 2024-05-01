@@ -1,7 +1,4 @@
-import {
-  SerializedError,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { SerializedError, createSlice } from "@reduxjs/toolkit";
 
 import {
   driverProfile,
@@ -12,6 +9,7 @@ import {
 } from "../reducers/authReducers";
 
 interface User {
+  userId: number;
   fullName: string;
   email: string;
   mobile: string;
@@ -19,6 +17,7 @@ interface User {
   role: string;
 }
 interface Driver {
+  driverId: number;
   name: string;
   email: string;
   mobile: string;
@@ -26,6 +25,7 @@ interface Driver {
   longitude: number;
   role: string;
   password: string;
+  totalRevenue: number;
 }
 interface AuthState {
   user: User | null;
@@ -33,12 +33,15 @@ interface AuthState {
   error: SerializedError | string | null;
   isLoading: boolean;
   token: string | null;
+  role: string | null;
 }
 const initialState: AuthState = {
   user: null,
   driver: null,
   error: null,
   isLoading: false,
+  role:
+    typeof localStorage !== "undefined" ? localStorage.getItem("role") : null,
   token:
     typeof localStorage !== "undefined" ? localStorage.getItem("token") : null,
 };
@@ -48,8 +51,7 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.isLoading = false;
-      state.driver = null;
-      state.user = null;
+      state.role = null;
       state.error = null;
       state.token = null;
       localStorage.clear();
@@ -92,10 +94,10 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.user = action.payload.user || null;
-        state.driver = action.payload.driver || null;
         state.token = action.payload.accessToken;
-        localStorage.setItem("token", action.payload.accessToken || null);
+        state.role = action.payload.type;
+        localStorage.setItem("token", action.payload.accessToken);
+        localStorage.setItem("role", action.payload.type);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -110,6 +112,7 @@ const authSlice = createSlice({
         state.driver = null;
         state.user = action.payload;
         state.error = null;
+        state.role = action.payload.role;
       })
       .addCase(userProfile.rejected, (state, action) => {
         state.isLoading = false;
@@ -124,6 +127,7 @@ const authSlice = createSlice({
         state.driver = action.payload;
         state.user = null;
         state.error = null;
+        state.role = action.payload.role;
       })
       .addCase(driverProfile.rejected, (state, action) => {
         state.isLoading = false;

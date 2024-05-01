@@ -14,11 +14,7 @@ function NavBar() {
           <div className="flex items-center">
             <div className="flex items-center mx-5">
               <Link href="/">
-                <h1
-                  className="text-slate-200
-                00
-                 font-bold "
-                >
+                <h1 className="text-slate-200                 font-bold ">
                   RIDE FAST
                 </h1>
               </Link>
@@ -41,7 +37,7 @@ function NavBar() {
               </ul>
             </div>
           </div>
-          <div className="flex">
+          <div className="flex ">
             <button
               className="hidden sm:block bg-gray-700 text-white hover:bg-gray-900 text-sm font-semibold px-4 py-3 rounded-md"
               onClick={() => router.push("/bookRide")}
@@ -58,7 +54,7 @@ function NavBar() {
           </div>
         </div>
         {menuActive && (
-          <div className="sm:hidden bg-black flex flex-col justify-center items-center space-y-5 py-10 transition-all ease-in-out duration-600 shadow-lg">
+          <div className="sm:hidden bg-black flex flex-col justify-center items-center absolute w-full z-10 space-y-5 py-10 transition-all ease-in-out duration-600 shadow-lg">
             <div>
               <ul
                 className=" text-slate-200 
@@ -77,7 +73,10 @@ function NavBar() {
               </ul>
             </div>
             <div className="flex ">
-              <button className="  bg-gray-700 text-white hover:bg-gray-900 text-sm font-semibold px-4 py-3 rounded-md">
+              <button
+                className="  bg-gray-700 text-white hover:bg-gray-900 text-sm font-semibold px-4 py-3 rounded-md"
+                onClick={() => router.push("/bookRide")}
+              >
                 Book a RideFast Cab
               </button>
               <button className="  bg-white hover:bg-gray-300 text-sm font-semibold px-4 py-3 ml-5 rounded-md ">

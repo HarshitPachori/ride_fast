@@ -1,6 +1,10 @@
 "use client";
 import { sx } from "@/utils/constants";
-import { loginUser, userProfile } from "@/utils/reducers/authReducers";
+import {
+  driverProfile,
+  loginUser,
+  userProfile,
+} from "@/utils/reducers/authReducers";
 import { useAppDispatch, useAppSelector } from "@/utils/store/store";
 import { West } from "@mui/icons-material";
 import {
@@ -58,22 +62,31 @@ function LoginForm() {
     },
   });
 
-  const jwt =
-    typeof localStorage !== "undefined" ? localStorage.getItem("token") : null;
   const auth = useAppSelector((store) => store.auth);
   useEffect(() => {
-    if (!jwt) {
-      return;
-    }
-    dispatch(userProfile(jwt));
-  }, [jwt]);
-  useEffect(() => {
-    if (auth.user?.role === "DRIVER" && jwt !== null) {
-      router.push("/driver/dashboard");
-    } else if (auth.user?.role === "NORMAL_USER" && jwt !== null) {
-      router.push("/bookRide");
-    }
-  }, [auth.user]);
+    const checkAuthorized = async () => {
+      try {
+        let response = null;
+        if (auth.role && auth.token) {
+          if (auth.role === "DRIVER") {
+            response = await dispatch(driverProfile(auth.token));
+            if (response.payload?.code !== 401) {
+              router.replace("/driver/dashboard");
+            }
+          } else if (auth.role === "NORMAL_USER") {
+            response = await dispatch(userProfile(auth.token));
+            if (response.payload?.code !== 401) {
+              router.replace("/bookRide");
+            }
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    checkAuthorized();
+  }, [auth.token, auth.role]);
+
   return (
     <div className="py-5">
       <div className="flex items-center px-2 lg:px-5 py-2">
@@ -132,7 +145,7 @@ function LoginForm() {
                 label="User"
               />
               <FormControlLabel
-                value="Driver"
+                value="DRIVER"
                 control={<Radio sx={{ color: "slategray" }} />}
                 label="Driver"
               />

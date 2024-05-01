@@ -24,4 +24,5 @@ public class DriverResponse {
   private License license;
   private UserRole role;
   private Vehicle vehicle;
+  private Long totalRevenue;
 }

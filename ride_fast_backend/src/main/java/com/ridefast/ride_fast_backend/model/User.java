@@ -1,6 +1,9 @@
 package com.ridefast.ride_fast_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ridefast.ride_fast_backend.enums.UserRole;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +30,10 @@ public class User {
     private String password;
     private String profilePicture;
     private UserRole role;
+    
+  @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    private Ride currentRide;
 
     @OneToOne(mappedBy = "user")
     private RefreshToken refreshToken;

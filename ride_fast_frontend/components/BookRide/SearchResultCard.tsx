@@ -18,11 +18,11 @@ function SearchResultCard({
   latitude_key,
   longitude_key,
 }: SearchCardProps) {
-  const pickupLatitude = 23.452;
-  const destinationLatitude = 83.951;
-  const pickupLongitude = 123.562;
-  const pickupArea = "Delhi";
-  const destinationLongitude = 173.352;
+  // const pickupLatitude = 23.452;
+  // const destinationLatitude = 83.951;
+  // const pickupLongitude = 123.562;
+  // const pickupArea = "Delhi";
+  // const destinationLongitude = 173.352;
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -30,9 +30,9 @@ function SearchResultCard({
 
   const handleSelect = () => {
     const params = new URLSearchParams(searchParams);
-    params.set(latitude_key, pickupLatitude.toString());
-    params.set(longitude_key, pickupLongitude.toString());
-    params.set(areaKey, pickupArea);
+    params.set(latitude_key, item?.lat);
+    params.set(longitude_key, item?.lon);
+    params.set(areaKey, item?.display_name);
 
     router.replace(pathName + "?" + params.toString());
   };
