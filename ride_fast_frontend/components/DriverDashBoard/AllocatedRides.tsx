@@ -1,5 +1,8 @@
 "use client";
-import { getDriverAllocatedRides } from "@/utils/reducers/driverReducers";
+import {
+  getDriverAllocatedRides,
+  getDriverCurrentRide,
+} from "@/utils/reducers/driverReducers";
 import { acceptRide, getRideById } from "@/utils/reducers/rideReducers";
 import { useAppDispatch, useAppSelector } from "@/utils/store/store";
 import Image from "next/image";
@@ -23,7 +26,19 @@ const AllocatedRides = () => {
   }, [ride.status]);
   const handleAcceptRide = async (rideId: number) => {
     try {
-      await dispatch(acceptRide(rideId));
+      if (auth.token && auth.driver?.driverId) {
+        await dispatch(
+          getDriverCurrentRide({
+            token: auth.token,
+            driverId: auth.driver?.driverId,
+          })
+        );
+      }
+      if (ride.currentRides !== null || ride.currentRides.length !== 0) {
+        await dispatch(acceptRide(rideId));
+      } else {
+        toast.error("Please complete your current ride first");
+      }
       if (auth.token) {
         await dispatch(getDriverAllocatedRides(auth.token));
       }

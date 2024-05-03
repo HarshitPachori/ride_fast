@@ -1,4 +1,4 @@
-import CompanyDashboard from "@/components/CompanyDashboard";
+import CompanyDashboard from "@/components/Company/CompanyDashboard";
 import React from "react";
 
 const page = () => {
