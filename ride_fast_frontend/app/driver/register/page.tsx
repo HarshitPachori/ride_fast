@@ -1,5 +1,5 @@
+import RegisterDriverForm from "@/components/Auth/RegisterDriverForm";
 import Layout from "@/components/Layout/Layout";
-import RegisterDriverForm from "@/components/RegisterDriverForm";
 import React from "react";
 
 function page() {

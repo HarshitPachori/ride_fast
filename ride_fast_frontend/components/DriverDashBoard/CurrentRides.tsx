@@ -29,10 +29,27 @@ const CurrentRides = () => {
   };
   const handleOtpSubmit = async () => {
     // ride start dispatch
-    const data = { otp: parseInt(otp), rideId: ride.rideId };
-    const response = await dispatch(startRide(data));
-    if (response.payload.error) {
-      toast.error(response.payload.message);
+    console.log(ride);
+    if (auth.token) {
+      const response = await dispatch(driverProfile(auth.token));
+      if (response.payload.code === 401) {
+        toast.error(response.payload.payload);
+        router.replace("/login");
+      }
+      const currentRideData = {
+        driverId: response.payload.id,
+        token: auth.token,
+      };
+      dispatch(getDriverCurrentRide(currentRideData)).then((response) => {
+        console.log(response);
+        
+        const data = { otp: parseInt(otp), rideId: response.payload.id };
+        dispatch(startRide(data)).error((e) => {
+          toast.error(response.payload.message);
+        });
+        // if (response.payload.error) {
+        // }
+      });
     }
 
     handleClose();
