@@ -3,7 +3,7 @@ import { convertMillisecondsToMinutesAndHours } from "@/utils/millisecondsToMinu
 import { useAppDispatch, useAppSelector } from "@/utils/store/store";
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import AllocatedRideCard from "./AllocatedRideCard";
+import AllocatedRideCard from "../DriverDashBoard/AllocatedRideCard";
 import { getRideById } from "@/utils/reducers/rideReducers";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -16,12 +16,10 @@ const PaymentPage = ({ rideId }: { rideId: number }) => {
   const router = useRouter();
   const [myRide, setMyRide] = useState({});
   useEffect(() => {
-    console.log(rideId, token);
     const dispatchgetride = async () => {
       if (token) {
         try {
           const response = await dispatch(getRideById({ rideId, token }));
-          console.log(response);
           setMyRide(response.payload);
         } catch (error) {
           console.error(error);
@@ -30,7 +28,6 @@ const PaymentPage = ({ rideId }: { rideId: number }) => {
     };
     dispatchgetride();
   }, []);
-  console.log("rideee : ", myRide);
   const handlePaymentLink = async () => {
     try {
       const response = await axios.post(
@@ -42,7 +39,6 @@ const PaymentPage = ({ rideId }: { rideId: number }) => {
           },
         }
       );
-      console.log(response);
       if (response.data.paymentLinkUrl) {
         window.location.href = response.data.paymentLinkUrl;
       }

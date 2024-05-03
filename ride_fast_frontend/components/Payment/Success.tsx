@@ -11,7 +11,6 @@ const Success = ({ rideId }: { rideId: number }) => {
   const token = useAppSelector((state) => state.auth.token);
   const searchparam = useSearchParams();
   const payment_id = searchparam.get("razorpay_payment_id");
-  console.log(payment_id, rideId);
   useEffect(() => {
     const storepayment = async () => {
       try {
@@ -24,7 +23,6 @@ const Success = ({ rideId }: { rideId: number }) => {
             order_id: rideId,
           },
         });
-        console.log(response);
         toast.success(response.data.message);
       } catch (error) {}
     };

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import GuardComponent from "@/components/GuardComponent";
+import GuardComponent from "@/components/Auth/GuardComponent";
 import Layout from "@/components/Layout/Layout";
 import RideDetail from "@/components/RideDetail/RideDetail";
 

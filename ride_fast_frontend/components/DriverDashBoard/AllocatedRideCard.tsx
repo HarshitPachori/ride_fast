@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 
 const AllocatedRideCard = ({ ride, type }: { type: string; ride: {} }) => {
-  console.log(ride);
   return (
     <div className=" px-5 py-5 ">
       <h1 className="mb-5 font-semibold text-xl text-center">Ride Details</h1>

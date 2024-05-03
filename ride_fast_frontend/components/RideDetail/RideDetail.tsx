@@ -17,14 +17,23 @@ function RideDetail({ id }: { id: number }) {
   const ride = useAppSelector((state) => state.ride);
   const token = auth.token;
   useEffect(() => {
+    let intervalId;
     if (token) {
       // dispatch(userProfile(token));
       const dipatchgetRide = async () => {
         const data = { rideId: id, token: token };
         const response = await dispatch(getRideById(data));
       };
-      dipatchgetRide();
+      intervalId = setInterval(() => {
+        dipatchgetRide();
+        if (ride.status === "COMPLETED") {
+          clearInterval(intervalId);
+        }
+      }, 5000);
     }
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [ride.status]);
   const centerLat =
     (parseFloat(ride.pickupLatitude.toString()) +

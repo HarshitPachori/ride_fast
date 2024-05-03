@@ -1,6 +1,6 @@
-import GuardComponent from "@/components/GuardComponent";
+import GuardComponent from "@/components/Auth/GuardComponent";
 import Layout from "@/components/Layout/Layout";
-import Rides from "@/components/Rides";
+import Rides from "@/components/Ride/Rides";
 import React from "react";
 
 function page() {

@@ -38,10 +38,7 @@ const DriverDashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <nav
-        className="w-full bg-black h-[10vh] flex  items-center justify-between px-6 lg:px-20 text-slate-200 sticky"
-        suppressHydrationWarning
-      >
+      <nav className="w-full bg-black h-[10vh] flex  items-center justify-between px-6 lg:px-20 text-slate-200 sticky">
         <Link href="/driver/dashboard">
           <h1 className=" font-bold ">RIDE FAST</h1>
         </Link>
