@@ -18,9 +18,7 @@ const StartedRide = () => {
     dispatchStartedRide();
   }, [ride.status]);
   const handleCompleteRide = async (rideId: number) => {
-    console.log(rideId);
     const response = await dispatch(completeRide(rideId));
-    console.log(response);
     await dispatch(getDriverStartedRide());
   };
   return (

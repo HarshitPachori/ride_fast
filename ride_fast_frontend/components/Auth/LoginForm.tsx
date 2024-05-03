@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import * as yup from "yup";
-import { CircularProgressBar } from "./CustomLoader";
+import { CircularProgressBar } from "../CustomLoader";
 
 const validationSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("email is required"),
@@ -74,10 +74,13 @@ function LoginForm() {
               router.replace("/driver/dashboard");
             }
           } else if (auth.role === "NORMAL_USER") {
-            response = await dispatch(userProfile(auth.token));
-            if (response.payload?.code !== 401) {
-              router.replace("/bookRide");
-            }
+            dispatch(userProfile(auth.token)).then((response) => {
+              if (response.payload.email === "ride@fast.com") {
+                router.replace("/company");
+              } else if (response.payload?.code !== 401) {
+                router.replace("/bookRide");
+              }
+            });
           }
         }
       } catch (error) {
@@ -90,7 +93,7 @@ function LoginForm() {
   return (
     <div className="py-5">
       <div className="flex items-center px-2 lg:px-5 py-2">
-        <West className="cursor-pointer" onClick={goBack} />
+        {/* <West className="cursor-pointer" onClick={goBack} /> */}
         <div className="w-full text-center">
           <h1 className="font-semibold text-xl tracking-widest">LOGIN HERE</h1>
         </div>

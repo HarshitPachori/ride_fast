@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/utils/store/store";
 import { sx } from "@/utils/constants";
 import toast from "react-hot-toast";
 import { registerDriver, registerUser } from "@/utils/reducers/authReducers";
-import { CircularProgressBar } from "./CustomLoader";
+import { CircularProgressBar } from "../CustomLoader";
 
 const validationSchema = yup.object().shape({
   name: yup.string().required("fullname is required"),

@@ -2,7 +2,7 @@ import React from "react";
 
 const CustomLoader = () => {
   return (
-    <div className="flex space-x-2 m-10 h-screen items-center justify-center">
+    <div className="flex space-x-2 m-10 h-[90vh] items-center justify-center">
       <div className="h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.15s]"></div>
       <div className="h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.2s]"></div>
       <div className="h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.3s]"></div>

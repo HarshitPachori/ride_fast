@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout/Layout";
-import Success from "@/components/Success";
+import Success from "@/components/Payment/Success";
 import React from "react";
 
 const page = ({ params }) => {

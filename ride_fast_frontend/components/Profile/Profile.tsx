@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from "@/utils/store/store";
 import { userProfile } from "@/utils/reducers/authReducers";
 import { useDispatch } from "react-redux";
 import { logout } from "@/utils/slices/authSlice";
-import RideCar from "../RideCar";
+import RideCar from "../Ride/RideCar";
 import toast from "react-hot-toast";
 import { getCurrentRideOfUser } from "@/utils/reducers/userReducers";
 import CustomLoader, { CircularProgressBar } from "../CustomLoader";

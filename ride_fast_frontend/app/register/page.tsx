@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout/Layout";
-import RegisterForm from "@/components/RegisterForm";
+import RegisterForm from "@/components/Auth/RegisterForm";
 import React from "react";
 
 function page() {
