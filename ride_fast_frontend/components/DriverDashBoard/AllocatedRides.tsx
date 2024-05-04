@@ -1,4 +1,5 @@
 "use client";
+import { driverProfile } from "@/utils/reducers/authReducers";
 import {
   getDriverAllocatedRides,
   getDriverCurrentRide,
@@ -26,18 +27,8 @@ const AllocatedRides = () => {
   }, [ride.status]);
   const handleAcceptRide = async (rideId: number) => {
     try {
-      if (auth.token && auth.driver?.driverId) {
-        await dispatch(
-          getDriverCurrentRide({
-            token: auth.token,
-            driverId: auth.driver?.driverId,
-          })
-        );
-      }
-      if (ride.currentRides !== null || ride.currentRides.length !== 0) {
+      if (ride.currentRides.length <= 0) {
         await dispatch(acceptRide(rideId));
-      } else {
-        toast.error("Please complete your current ride first");
       }
       if (auth.token) {
         await dispatch(getDriverAllocatedRides(auth.token));

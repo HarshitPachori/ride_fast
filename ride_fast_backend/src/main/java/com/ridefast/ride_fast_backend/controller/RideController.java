@@ -45,36 +45,36 @@ public class RideController {
   }
 
   @PostMapping("/{rideId}/accept")
-  public ResponseEntity<MessageResponse> acceptRideRequestHandler(@PathVariable Long rideId)
+  public ResponseEntity<RideDto> acceptRideRequestHandler(@PathVariable Long rideId)
       throws ResourceNotFoundException {
-    rideService.acceptRide(rideId);
-    MessageResponse message = new MessageResponse("Ride accepted by Driver");
-    return new ResponseEntity<>(message, HttpStatus.OK);
+    Ride ride = rideService.acceptRide(rideId);
+    RideDto rideDto = modelMapper.map(ride, RideDto.class);
+    return new ResponseEntity<>(rideDto, HttpStatus.OK);
   }
 
   @PostMapping("/{rideId}/decline")
-  public ResponseEntity<MessageResponse> declineRideHandler(@RequestHeader("Authorization") String jwtToken,
+  public ResponseEntity<RideDto> declineRideHandler(@RequestHeader("Authorization") String jwtToken,
       @PathVariable Long rideId) throws ResourceNotFoundException {
     Driver driver = driverService.getRequestedDriverProfile(jwtToken);
-    rideService.declineRide(rideId, driver.getId());
-    MessageResponse message = new MessageResponse("Ride Declined by Driver");
-    return new ResponseEntity<>(message, HttpStatus.OK);
+    Ride ride = rideService.declineRide(rideId, driver.getId());
+    RideDto rideDto = modelMapper.map(ride, RideDto.class);
+    return new ResponseEntity<>(rideDto, HttpStatus.OK);
   }
 
   @PostMapping("/{rideId}/start")
-  public ResponseEntity<MessageResponse> rideStartHandler(
+  public ResponseEntity<RideDto> rideStartHandler(
       @PathVariable Long rideId, @RequestBody StartRideRequest req) throws ResourceNotFoundException, UserException {
-    rideService.startRide(rideId, req.getOtp());
-    MessageResponse message = new MessageResponse("Ride is Started");
-    return new ResponseEntity<>(message, HttpStatus.OK);
+    Ride ride = rideService.startRide(rideId, req.getOtp());
+    RideDto rideDto = modelMapper.map(ride, RideDto.class);
+    return new ResponseEntity<>(rideDto, HttpStatus.OK);
   }
 
   @PostMapping("/{rideId}/complete")
-  public ResponseEntity<MessageResponse> rideCompleteHandler(
+  public ResponseEntity<RideDto> rideCompleteHandler(
       @PathVariable Long rideId) throws ResourceNotFoundException {
-    rideService.completeRide(rideId);
-    MessageResponse message = new MessageResponse("Ride is Completed ! Thank you for Booking Cab");
-    return new ResponseEntity<>(message, HttpStatus.OK);
+    Ride ride = rideService.completeRide(rideId);
+    RideDto rideDto = modelMapper.map(ride, RideDto.class);
+    return new ResponseEntity<>(rideDto, HttpStatus.OK);
   }
 
   @GetMapping("/{rideId}")

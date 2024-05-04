@@ -14,7 +14,11 @@ import { CircularProgressBar } from "../CustomLoader";
 const validationSchema = yup.object().shape({
   fullName: yup.string().required("fullname is required"),
   mobile: yup.string().required("mobile is required"),
-  email: yup.string().email("invalid email").required("email is required"),
+  email: yup
+    .string()
+    .email("invalid email")
+    .required("email is required")
+    .notOneOf(["ride@fast.com"], "You cannot pick this email"),
   password: yup
     .string()
     .min(8, "password should be of atleast 8 characters")

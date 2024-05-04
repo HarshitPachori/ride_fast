@@ -73,12 +73,12 @@ const DriverDashboardLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
             </Link>
 
-            <Link href={"/driver/dashboard/cancelledRides"}>
+            {/* <Link href={"/driver/dashboard/cancelledRides"}>
               <div className="flex items-center gap-2 px-5 py-5 cursor-pointer border-b border-slate-300">
                 <Cancel className="text-red-600" />
                 <h1 className="">Cancelled Rides</h1>
               </div>
-            </Link>
+            </Link> */}
           </div>
           <div
             className="flex items-center gap-2 px-5 py-5  cursor-pointer border-t border-slate-300"

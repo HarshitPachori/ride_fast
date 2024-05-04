@@ -74,7 +74,7 @@ public class RideServiceImpl implements RideService {
   }
 
   @Override
-  public void acceptRide(Long rideId) throws ResourceNotFoundException {
+  public Ride acceptRide(Long rideId) throws ResourceNotFoundException {
     Ride ride = rideRepository.findById(rideId)
         .orElseThrow(() -> new ResourceNotFoundException("Ride", "rideId", rideId));
     ride.setStatus(RideStatus.ACCEPTED);
@@ -85,11 +85,12 @@ public class RideServiceImpl implements RideService {
     ride.setOtp(otp);
 
     driverRepository.save(driver);
-    rideRepository.save(ride);
+    Ride savedRide = rideRepository.save(ride);
+    return savedRide;
   }
 
   @Override
-  public void declineRide(Long rideId, Long driverId) throws ResourceNotFoundException {
+  public Ride declineRide(Long rideId, Long driverId) throws ResourceNotFoundException {
     Ride ride = rideRepository.findById(rideId)
         .orElseThrow(() -> new ResourceNotFoundException("Ride", "rideId", rideId));
     ride.getDeclinedDrivers().add(driverId);
@@ -98,11 +99,12 @@ public class RideServiceImpl implements RideService {
     Driver nearestDriver = driverService.getNearestDriver(availableDrivers, ride.getPickupLatitude(),
         ride.getPickupLongitude());
     ride.setDriver(nearestDriver);
-    rideRepository.save(ride);
+    Ride savedRide = rideRepository.save(ride);
+    return savedRide;
   }
 
   @Override
-  public void startRide(Long rideId, int OTP) throws ResourceNotFoundException, UserException {
+  public Ride startRide(Long rideId, int OTP) throws ResourceNotFoundException, UserException {
     Ride ride = rideRepository.findById(rideId)
         .orElseThrow(() -> new ResourceNotFoundException("Ride", "rideId", rideId));
     if (OTP != ride.getOtp()) {
@@ -110,11 +112,12 @@ public class RideServiceImpl implements RideService {
     }
     ride.setStatus(RideStatus.STARTED);
     ride.setStartTime(LocalDateTime.now());
-    rideRepository.save(ride);
+    Ride savedride = rideRepository.save(ride);
+    return savedride;
   }
 
   @Override
-  public void completeRide(Long rideId) throws ResourceNotFoundException {
+  public Ride completeRide(Long rideId) throws ResourceNotFoundException {
     Ride ride = rideRepository.findById(rideId)
         .orElseThrow(() -> new ResourceNotFoundException("Ride", "rideId", rideId));
     ride.setStatus(RideStatus.COMPLETED);
@@ -144,16 +147,17 @@ public class RideServiceImpl implements RideService {
     long totalRevenue = driver.getTotalRevenue() + Math.round(fare * 0.8); // means driver get 80% only
     driver.setTotalRevenue(totalRevenue);
     driverRepository.save(driver);
-    rideRepository.save(ride);
-
+    Ride savedRide = rideRepository.save(ride);
+    return savedRide;
   }
 
   @Override
-  public void cancelRide(Long rideId) throws ResourceNotFoundException {
+  public Ride cancelRide(Long rideId) throws ResourceNotFoundException {
     Ride ride = rideRepository.findById(rideId)
         .orElseThrow(() -> new ResourceNotFoundException("Ride", "rideId", rideId));
     ride.setStatus(RideStatus.CANCELLED);
-    rideRepository.save(ride);
+    Ride savedRide = rideRepository.save(ride);
+    return savedRide;
   }
 
   @Override

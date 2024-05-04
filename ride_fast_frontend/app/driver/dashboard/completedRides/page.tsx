@@ -58,7 +58,10 @@ const pages = () => {
                   />
                   <div className="flex flex-col lg:flex-row gap-5 lg:gap-8 items-center">
                     <h1 className="font-semibold text-slate-700">
-                      {new Date(item?.startTime).toLocaleString()}
+                      On : {new Date(item?.startTime).toLocaleDateString()}
+                      <br />
+                      {new Date(item?.startTime).toLocaleTimeString()} to{" "}
+                      {new Date(item?.endTime).toLocaleTimeString()}
                     </h1>
                     <p className="font-semibold text-slate-600 text-center">
                       {item?.driver?.vehicle?.company +
@@ -69,7 +72,7 @@ const pages = () => {
                       <p className="text-center text-sm m-2">
                         Booked By : {item?.user.fullName}
                       </p>
-                      <div className="items-center my-2">
+                      <div className="items-center text-center my-2">
                         <p className="text-xs  sm:text-sm text-slate-600">
                           {item?.pickupArea}
                         </p>
@@ -82,6 +85,7 @@ const pages = () => {
                     <p>
                       {convertMillisecondsToMinutesAndHours(item?.duration)}
                     </p>
+                    <p>{item?.distance} km</p>
                     <p>&#8377; {item.fare}</p>
                   </div>
                 </div>

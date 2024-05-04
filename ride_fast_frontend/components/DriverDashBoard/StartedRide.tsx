@@ -6,17 +6,21 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 
 const StartedRide = () => {
-  const ride = useAppSelector((state) => state.driver);
+  const driver = useAppSelector((state) => state.driver);
   const auth = useAppSelector((state) => state.auth);
+  const ride = useAppSelector((state) => state.ride);
   const dispatch = useAppDispatch();
+  const dispatchStartedRide = async () => {
+    if (auth.token) {
+      await dispatch(getDriverStartedRide());
+    }
+  };
   useEffect(() => {
-    const dispatchStartedRide = async () => {
-      if (auth.token) {
-        await dispatch(getDriverStartedRide());
-      }
-    };
     dispatchStartedRide();
-  }, [ride.status]);
+  }, []);
+  useEffect(() => {
+    dispatchStartedRide();
+  }, [ride.status, auth.token]);
   const handleCompleteRide = async (rideId: number) => {
     const response = await dispatch(completeRide(rideId));
     await dispatch(getDriverStartedRide());
@@ -25,10 +29,10 @@ const StartedRide = () => {
     <div className="bg-white w-full px-5 py-5 rounded-md shadow-lg my-10">
       <h1 className="mb-5 font-semibold text-xl ">Started Ride</h1>
 
-      {ride.startedRides.length === 0 ? (
+      {driver.startedRides.length === 0 ? (
         <h1>No Started Rides</h1>
       ) : (
-        ride.startedRides.map((item) => (
+        driver.startedRides.map((item) => (
           <div
             className="flex flex-col lg:flex-row justify-between"
             key={item?.id}
@@ -48,7 +52,7 @@ const StartedRide = () => {
                     " " +
                     item?.driver?.vehicle?.model}
                 </p>
-                <p className="text-sm text-slate-600">{ride?.pickupArea}</p>
+                <p className="text-sm text-slate-600">{item?.pickupArea}</p>
               </div>
             </div>
             <button

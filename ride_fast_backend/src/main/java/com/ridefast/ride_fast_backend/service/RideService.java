@@ -13,15 +13,15 @@ public interface RideService {
   Ride createRide(User user, Driver nearestDriver, double pickupLatitude, double pickupLongitude,
       double destinationLatitude, double destinationLongitude, String pickupArea, String destinationArea);
 
-  void acceptRide(Long rideId) throws ResourceNotFoundException;
+  Ride acceptRide(Long rideId) throws ResourceNotFoundException;
 
-  void declineRide(Long rideId, Long driverId) throws ResourceNotFoundException;
+  Ride declineRide(Long rideId, Long driverId) throws ResourceNotFoundException;
 
-  void startRide(Long rideId, int OTP) throws ResourceNotFoundException, UserException;
+  Ride startRide(Long rideId, int OTP) throws ResourceNotFoundException, UserException;
 
-  void completeRide(Long rideId) throws ResourceNotFoundException;
+  Ride completeRide(Long rideId) throws ResourceNotFoundException;
 
-  void cancelRide(Long rideId) throws ResourceNotFoundException;
+  Ride cancelRide(Long rideId) throws ResourceNotFoundException;
 
   Ride findRideById(Long rideId) throws ResourceNotFoundException;
 

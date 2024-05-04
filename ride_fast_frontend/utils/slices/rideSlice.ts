@@ -157,6 +157,7 @@ const rideSlice = createSlice({
       })
       .addCase(acceptRide.fulfilled, (state, action) => {
         state.isSuccess = true;
+        state.rideId = action.payload.id;
         state.user = action.payload.user;
         state.driver = action.payload.driver;
         state.status = action.payload.status;
@@ -186,6 +187,7 @@ const rideSlice = createSlice({
       })
       .addCase(completeRide.fulfilled, (state, action) => {
         state.isSuccess = true;
+        state.rideId = action.payload.id;
         state.user = action.payload.user;
         state.driver = action.payload.driver;
         state.status = action.payload.status;

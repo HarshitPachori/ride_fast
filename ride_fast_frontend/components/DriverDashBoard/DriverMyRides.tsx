@@ -1,10 +1,17 @@
 "use client";
-import { useAppSelector } from "@/utils/store/store";
+import { driverProfile } from "@/utils/reducers/authReducers";
+import {
+  getDriverCompletedRides,
+  getDriverCurrentRide,
+} from "@/utils/reducers/driverReducers";
+import { useAppDispatch, useAppSelector } from "@/utils/store/store";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 
 const DriverMyRides = () => {
   const { auth, driver, ride } = useAppSelector((state) => state);
+
+  useEffect(() => {}, [ride.status]);
 
   return (
     <div className="bg-white w-full px-5 py-5 rounded-md shadow-lg my-10">
@@ -23,7 +30,7 @@ const DriverMyRides = () => {
             <h1 className="">{driver.currentRides.length}</h1>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-5 mb-10 md:0 px-10">
+        {/* <div className="flex items-center justify-between gap-5 mb-10 md:0 px-10">
           <Image
             src="https://cdn.pixabay.com/photo/2017/06/15/04/13/car-2404064_1280.png"
             alt=""
@@ -35,7 +42,7 @@ const DriverMyRides = () => {
             <h1 className="font-medium">Cancelled rides</h1>
             <h1 className="">0</h1>
           </div>
-        </div>
+        </div> */}
         <div className="flex items-center justify-between gap-5 mb-10 md:0 px-10">
           <Image
             src="https://cdn.pixabay.com/photo/2017/06/15/04/13/car-2404064_1280.png"

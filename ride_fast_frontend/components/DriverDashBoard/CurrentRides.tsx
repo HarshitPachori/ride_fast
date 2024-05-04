@@ -13,11 +13,14 @@ import { useAppDispatch, useAppSelector } from "@/utils/store/store";
 import { getDriverCurrentRide } from "@/utils/reducers/driverReducers";
 import { driverProfile } from "@/utils/reducers/authReducers";
 import { useRouter } from "next/navigation";
-import CustomLoader from "../CustomLoader";
-import { getRideById, startRide } from "@/utils/reducers/rideReducers";
-import { getCurrentRideOfUser } from "@/utils/reducers/userReducers";
+import { startRide } from "@/utils/reducers/rideReducers";
 
 const CurrentRides = () => {
+  const driver = useAppSelector((state) => state.driver);
+  const auth = useAppSelector((state) => state.auth);
+  const ride = useAppSelector((state) => state.ride);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const [otp, setOtp] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -29,55 +32,52 @@ const CurrentRides = () => {
   };
   const handleOtpSubmit = async () => {
     // ride start dispatch
-    console.log(ride);
     if (auth.token) {
       const response = await dispatch(driverProfile(auth.token));
       if (response.payload.code === 401) {
         toast.error(response.payload.payload);
         router.replace("/login");
       }
-      const currentRideData = {
-        driverId: response.payload.id,
-        token: auth.token,
-      };
-      dispatch(getDriverCurrentRide(currentRideData)).then((response) => {
-        console.log(response);
-        
-        const data = { otp: parseInt(otp), rideId: response.payload.id };
-        dispatch(startRide(data)).error((e) => {
+      dispatchGetdriverCurrentRide();
+      // Only start ride if there are current rides available
+      if (driver.currentRides.length > 0) {
+        const data = {
+          otp: parseInt(otp),
+          rideId: ride.rideId,
+        };
+        const response = await dispatch(startRide(data));
+        if (response.payload.error) {
           toast.error(response.payload.message);
-        });
-        // if (response.payload.error) {
-        // }
-      });
+        } else {
+          toast.success(response.payload.message || "Ride started succesfully");
+        }
+      }
+      handleClose();
     }
-
-    handleClose();
   };
 
-  const ride = useAppSelector((state) => state.driver);
-  const auth = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-  useEffect(() => {
-    const dispatchGetdriverCurrentRide = async () => {
-      try {
-        if (auth.token) {
-          const response = await dispatch(driverProfile(auth.token));
-          if (response.payload.code === 401) {
-            toast.error(response.payload.payload);
-            router.replace("/login");
-          }
-          const currentRideData = {
-            driverId: response.payload.id,
-            token: auth.token,
-          };
-          await dispatch(getDriverCurrentRide(currentRideData));
+  const dispatchGetdriverCurrentRide = async () => {
+    try {
+      if (auth.token) {
+        const response = await dispatch(driverProfile(auth.token));
+        if (response.payload.code === 401) {
+          toast.error(response.payload.payload);
+          router.replace("/login");
         }
-      } catch (error) {
-        console.error(error);
+        const currentRideData = {
+          driverId: response.payload.id,
+          token: auth.token,
+        };
+        await dispatch(getDriverCurrentRide(currentRideData));
       }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    dispatchGetdriverCurrentRide();
+  }, []);
+  useEffect(() => {
     dispatchGetdriverCurrentRide();
   }, [auth.token, ride.status]);
 
@@ -85,10 +85,10 @@ const CurrentRides = () => {
     <>
       <div className="bg-white w-full px-5 py-5 rounded-md shadow-lg my-10">
         <h1 className="mb-5 font-semibold text-xl ">Current Ride</h1>
-        {ride.currentRides.length === 0 ? (
+        {driver.currentRides.length === 0 ? (
           <h1>No Current Rides</h1>
         ) : (
-          ride.currentRides.map((item) => (
+          driver.currentRides.map((item) => (
             <div
               className="flex flex-col lg:flex-row justify-between"
               key={item?.id}
