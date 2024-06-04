@@ -22,7 +22,6 @@ jobs:
 
       - name: Package and Build the application
         run: |
-          cd ride_fast_backend
           mvn clean
           mvn -B package -DskipTests --file pom.xml
 
