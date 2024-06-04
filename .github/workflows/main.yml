@@ -23,12 +23,12 @@ jobs:
       - name: Package and Build the application
         run: |
           mvn clean
-          mvn -B package --file ride_fast_backend/pom.xml --DskipTests
+          mvn -B package -DskipTests --file ride_fast_backend/pom.xml
 
       - name: Build Docker Image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ride_fast_backend/
           push: false
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/ride_fast_backend:latest
 
@@ -41,6 +41,6 @@ jobs:
       - name: Push Image to Docker Hub
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ride_fast_backend/
           push: true
           tags: ${{secrets.DOCKER_HUB_USERNAME}}/ride_fast_backend:latest
