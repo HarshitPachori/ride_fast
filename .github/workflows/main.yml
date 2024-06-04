@@ -22,8 +22,9 @@ jobs:
 
       - name: Package and Build the application
         run: |
+          cd ride_fast_backend
           mvn clean
-          mvn -B package -DskipTests --file ride_fast_backend/pom.xml
+          mvn -B package -DskipTests pom.xml
 
       - name: Build Docker Image
         uses: docker/build-push-action@v5
