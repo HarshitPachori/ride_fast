@@ -144,10 +144,10 @@ function RideDetail({ id }: { id: number }) {
             router.push(`/ride/${ride.rideId}/payment`);
           }}
           variant="contained"
-          color="secondary"
+          className="bg-blue-800"
           sx={{
-            width: "100%",
             padding: ".5rem 0rem",
+            width: "100%",
           }}
         >
           Pay Now

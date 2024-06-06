@@ -13,7 +13,7 @@ function DrawerList({ anchor }: { anchor: string }) {
   return (
     <Box sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}>
       <List>
-        {["Book Your Ride", "Rate Card", "Support"].map((text, index) => (
+        {["Book Your Ride", ].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>

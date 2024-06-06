@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public List<Ride> getCompletedRides(
             @Param("userId") Long userId);
 
-    @Query("select r from Ride r where r.status=ACCEPTED and r.user.id=:userId")
+    @Query("select r from Ride r where r.status=ACCEPTED or status=STARTED and r.user.id=:userId")
     public List<Ride> getCurrentRides(@Param("userId") Long userId);
 
     @Query("select r from Ride r where r.status=REQUESTED and r.user.id=:userId")

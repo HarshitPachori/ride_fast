@@ -219,7 +219,7 @@ function BookRide() {
             type="submit"
             color="secondary"
           >
-            Find Driver
+            Book Your Ride
           </Button>
         </form>
       </div>

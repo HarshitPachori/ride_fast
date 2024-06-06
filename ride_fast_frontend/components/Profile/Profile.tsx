@@ -77,15 +77,24 @@ function Profile() {
       <div className="border mt-5">
         <div className="flex items-center p-3 border-b">
           <AccountBalanceWallet className="text-green-600" />
-          <p className="ml-4">RideFast Money</p>
+          <div className="ml-4 flex justify-between w-full">
+            <p className="text-gray-900">RideFast Money</p>
+            <p className="text-gray-600">Coming soon...</p>
+          </div>
         </div>
         <div className="flex items-center p-3 border-b">
           <ContactPhone className="text-green-600" />
-          <p className="ml-4">Emergency Contact</p>
+          <div className="ml-4 flex flex-row justify-between w-full">
+            <p className="text-gray-900">Emergency Contact</p>
+            <p className="text-gray-600">+91-9119022603</p>
+          </div>
         </div>
         <div className="flex items-center p-3 border-b">
           <Wifi className="text-green-600" />
-          <p className="ml-4">RideFast Wifi Credentials</p>
+          <div className="ml-4 flex justify-between w-full">
+            <p className="text-gray-900">RideFast Wifi Credentials</p>
+            <p className="text-gray-600">Coming soon...</p>
+          </div>
         </div>
       </div>
       <div>
