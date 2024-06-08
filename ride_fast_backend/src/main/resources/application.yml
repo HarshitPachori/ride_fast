@@ -3,9 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://ep-ancient-fog-a40vxdub-pooler.us-east-1.aws.neon.tech:5432/verceldb
-    username: default
-    password: to3dMDXSjy6R
+    url: jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?user=postgres.mpdtafocfwffptvrdruq&password=KzpsKLu8.@qpJgT
   jpa:
     hibernate:
       ddl-auto: update
