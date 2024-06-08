@@ -9,6 +9,7 @@ import CustomLoader from "@/components/CustomLoader";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { convertMillisecondsToMinutesAndHours } from "@/utils/millisecondsToMinutes";
+import { RideState } from "@/utils/slices/rideSlice";
 const pages = () => {
   const ride = useAppSelector((state) => state.driver);
   const auth = useAppSelector((state) => state.auth);
@@ -42,13 +43,13 @@ const pages = () => {
           {ride.completedRides.length === 0 ? (
             <h1>No Completed rides</h1>
           ) : (
-            ride.completedRides.map((item) => (
+            ride.completedRides.map((item: RideState) => (
               <div
                 className="relative flex flex-col lg:flex-row justify-between  my-5 p-2 rounded-md shadow-lg border"
-                key={item?.id}
+                key={item?.rideId}
               >
                 <div className="flex flex-col lg:flex-row items-center justify-between lg:gap-8 ">
-                  <p>{item?.id}</p>
+                  <p>{item?.rideId}</p>
                   <Image
                     src="https://cdn.pixabay.com/photo/2017/06/15/04/13/car-2404064_1280.png"
                     alt=""
@@ -70,7 +71,7 @@ const pages = () => {
                     </p>
                     <div>
                       <p className="text-center text-sm m-2">
-                        Booked By : {item?.user.fullName}
+                        Booked By : {item?.user?.fullName}
                       </p>
                       <div className="items-center text-center my-2">
                         <p className="text-xs  sm:text-sm text-slate-600">

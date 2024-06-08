@@ -88,7 +88,7 @@ const CurrentRides = () => {
         {driver.currentRides.length === 0 ? (
           <h1>No Current Rides</h1>
         ) : (
-          driver.currentRides.map((item) => (
+          driver.currentRides.map((item:any) => (
             <div
               className="flex flex-col lg:flex-row justify-between"
               key={item?.id}

@@ -6,7 +6,7 @@ interface SearchResultProps {
   setActiveField: string;
   latitude_key: string;
   longitude_key: string;
-  item: object;
+  item: any;
 }
 
 function SearchResult({

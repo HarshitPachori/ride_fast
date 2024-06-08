@@ -14,7 +14,7 @@ const PaymentPage = ({ rideId }: { rideId: number }) => {
   const token = useAppSelector((state) => state.auth.token);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [myRide, setMyRide] = useState({});
+  const [myRide, setMyRide] = useState<any>({});
   useEffect(() => {
     const dispatchgetride = async () => {
       if (token) {

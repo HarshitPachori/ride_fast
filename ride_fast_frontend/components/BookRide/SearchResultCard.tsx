@@ -3,9 +3,7 @@ import React from "react";
 import LocationIcon from "@mui/icons-material/LocationOn";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 interface SearchCardProps {
-  item: {
-    display_name: string;
-  };
+  item: any;
   areaKey: string;
   setActiveField: string;
   latitude_key: string;

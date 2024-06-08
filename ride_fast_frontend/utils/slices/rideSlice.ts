@@ -30,8 +30,13 @@ interface Driver {
   longitude: number;
   role: string;
   password: string;
+  vehicle: {
+    company: string;
+    model: string;
+    licensePlate:string
+  };
 }
-interface RideState {
+export interface RideState {
   rideId: number;
   isLoading: boolean;
   error: SerializedError | string | null;

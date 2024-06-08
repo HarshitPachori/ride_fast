@@ -119,7 +119,7 @@ const CompanyDashboard = () => {
               </div>
             )}
             {userData.length !== 0 &&
-              userData.map((user) => (
+              userData.map((user: any) => (
                 <div
                   className="shadow-lg px-10 py-5 my-5 border border-slate-300 rounded-md flex items-center justify-between bg-slate-100"
                   key={user.id}
@@ -136,7 +136,7 @@ const CompanyDashboard = () => {
             {driverData.length === 0 ? (
               <h1>No Driver there</h1>
             ) : (
-              driverData.map((driver) => (
+              driverData.map((driver: any) => (
                 <div
                   className="shadow-lg px-10 py-5 my-5 border border-slate-300 rounded-md flex flex-col lg:flex-row gap-8 justify-center items-center lg:justify-between bg-slate-100"
                   key={driver.id}
@@ -229,7 +229,7 @@ const CompanyDashboard = () => {
             {rideData.length === 0 ? (
               <h1>No Rides are there</h1>
             ) : (
-              rideData.map((ride) => (
+              rideData.map((ride: any) => (
                 <div
                   className="shadow-lg px-10 py-5 my-5 border border-slate-300 rounded-md flex flex-col lg:flex-row gap-8 justify-center items-center lg:justify-between bg-slate-100"
                   key={ride.id}

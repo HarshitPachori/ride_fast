@@ -53,7 +53,7 @@ const AllocatedRides = () => {
       {ride.allocatedRides.length === 0 ? (
         <h1>No Allocated Rides</h1>
       ) : (
-        ride.allocatedRides.map((item, idx) => (
+        ride.allocatedRides.map((item:any, idx) => (
           <div
             className="flex flex-col lg:flex-row justify-between  my-5 p-2 rounded-md shadow-lg border"
             key={idx + item.id}

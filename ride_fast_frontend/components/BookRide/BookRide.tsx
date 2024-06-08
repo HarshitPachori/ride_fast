@@ -140,7 +140,7 @@ function BookRide() {
               {activeField === "pickupArea" &&
                 formik.values?.pickupArea?.length > 0 && (
                   <div className="absolute top-10 left-0 bg-white z-10 rounded-md p-2 border max-h-[50vh] w-full overflow-y-scroll shadow-md hide-scroll">
-                    {suggestions.map((suggestion, index) => (
+                    {suggestions.map((suggestion: any, index) => (
                       <div
                         key={index}
                         onClick={() => handleSelectSuggestion(suggestion)}
@@ -184,22 +184,24 @@ function BookRide() {
               {activeField === "destinationArea" &&
                 formik.values?.destinationArea?.length > 0 && (
                   <div className="absolute top-10 left-0 bg-white z-10 rounded-md p-2 border max-h-[50vh] w-full overflow-y-scroll shadow-md hide-scroll">
-                    {suggestions.map((suggestion, index) => (
-                      <div
-                        key={index}
-                        onClick={() => handleSelectSuggestion(suggestion)}
-                        className="flex items-center py-2 z-10 bg-white cursor-pointer"
-                      >
-                        <div className="pr-5">
-                          <LocationOn />
+                    {suggestions.map(
+                      (suggestion: { display_name: any }, index) => (
+                        <div
+                          key={index}
+                          onClick={() => handleSelectSuggestion(suggestion)}
+                          className="flex items-center py-2 z-10 bg-white cursor-pointer"
+                        >
+                          <div className="pr-5">
+                            <LocationOn />
+                          </div>
+                          <div>
+                            <p className="font-semibold">
+                              {suggestion?.display_name?.split()[0]}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-semibold">
-                            {suggestion?.display_name.split()[0]}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                   </div>
                 )}
             </div>

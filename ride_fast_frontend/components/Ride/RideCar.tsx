@@ -5,7 +5,7 @@ import React from "react";
 import { Verified } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 
-function RideCar({ ride }: { ride: {} }) {
+function RideCar({ ride }: { ride: any }) {
   const router = useRouter();
   return (
     <div

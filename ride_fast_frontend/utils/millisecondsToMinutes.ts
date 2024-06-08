@@ -1,4 +1,4 @@
-export function convertMillisecondsToMinutesAndHours(seconds) {
+export function convertMillisecondsToMinutesAndHours(seconds: any) {
   // if (milliseconds < 1000) return milliseconds + " milli sec";
   // let seconds = Math.floor(milliseconds / 1000);
   // let minutes = Math.floor(seconds / 60);

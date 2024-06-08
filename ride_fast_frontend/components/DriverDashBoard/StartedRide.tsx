@@ -32,7 +32,7 @@ const StartedRide = () => {
       {driver.startedRides.length === 0 ? (
         <h1>No Started Rides</h1>
       ) : (
-        driver.startedRides.map((item) => (
+        driver.startedRides.map((item:any) => (
           <div
             className="flex flex-col lg:flex-row justify-between"
             key={item?.id}

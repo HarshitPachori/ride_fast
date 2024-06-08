@@ -119,7 +119,7 @@ function Rides() {
             No Completed Rides...
           </h1>
         ) : (
-          completedRide.map((item, idx) => (
+          completedRide.map((item:any, idx) => (
             <div
               key={idx}
               className="flex justify-between items-center shadow-md rounded-s-sm p-3 cursor-pointer"

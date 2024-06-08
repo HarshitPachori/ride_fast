@@ -65,7 +65,7 @@ function Profile() {
         <p className="">{auth?.user?.mobile}</p>
       </div>
       <div className="rounded-sm border mt-5">
-        {ride.map((item) => (
+        {ride.map((item:any) => (
           <RideCar ride={item} key={item?.id} />
         ))}
         <div className="flex flex-col items-center">

@@ -17,7 +17,7 @@ function RideDetail({ id }: { id: number }) {
   const ride = useAppSelector((state) => state.ride);
   const token = auth.token;
   useEffect(() => {
-    let intervalId;
+    let intervalId: NodeJS.Timeout;
     if (token) {
       // dispatch(userProfile(token));
       const dipatchgetRide = async () => {
