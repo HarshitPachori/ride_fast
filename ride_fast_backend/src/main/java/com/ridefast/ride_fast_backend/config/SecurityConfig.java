@@ -44,7 +44,8 @@ public class SecurityConfig {
                             @Override
                             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                                 CorsConfiguration cfg = new CorsConfiguration();
-                                cfg.setAllowedOrigins(List.of("http://localhost:3000"));
+                                cfg.setAllowedOrigins(
+                                        List.of("http://localhost:3000", "https://ride-fast.vercel.app/"));
                                 cfg.addAllowedMethod("*");
                                 cfg.setAllowCredentials(true);
                                 cfg.addAllowedHeader("*");
@@ -54,8 +55,8 @@ public class SecurityConfig {
                             }
                         }))
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers( "/api/v1/auth/**").permitAll()
-                        .requestMatchers( "/swagger-ui/**", "/").permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/home").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement((management) -> management
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -74,11 +75,12 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
+
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
-    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    provider.setUserDetailsService(customUserDetailsService);
-    provider.setPasswordEncoder(passwordEncoder());
-    return provider;
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(customUserDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
     }
 }
