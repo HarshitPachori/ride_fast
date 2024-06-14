@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - ride_fast_backend/**
+      - .github/**
 jobs:
   build-deploy:
     name: Build and Deploy Spring Boot application
