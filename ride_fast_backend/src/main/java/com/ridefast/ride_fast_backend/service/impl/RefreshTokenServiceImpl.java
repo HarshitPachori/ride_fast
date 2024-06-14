@@ -10,7 +10,7 @@ import com.ridefast.ride_fast_backend.enums.UserRole;
 import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.model.Driver;
 import com.ridefast.ride_fast_backend.model.RefreshToken;
-import com.ridefast.ride_fast_backend.model.User;
+import com.ridefast.ride_fast_backend.model.MyUser;
 import com.ridefast.ride_fast_backend.repository.DriverRepository;
 import com.ridefast.ride_fast_backend.repository.RefreshTokenRepository;
 import com.ridefast.ride_fast_backend.repository.UserRepository;
@@ -32,7 +32,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
   public RefreshToken createRefreshToken(String username, UserRole userRole) throws ResourceNotFoundException {
     RefreshToken refreshToken = null;
     if (userRole == UserRole.NORMAL_USER) {
-      User user = userRepository.findByEmail(username)
+      MyUser user = userRepository.findByEmail(username)
           .orElseThrow(() -> new ResourceNotFoundException("username", "username", username));
       refreshToken = user.getRefreshToken();
       if (refreshToken == null) {

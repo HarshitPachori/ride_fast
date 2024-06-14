@@ -5,12 +5,12 @@ import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.exception.UserException;
 import com.ridefast.ride_fast_backend.model.Driver;
 import com.ridefast.ride_fast_backend.model.Ride;
-import com.ridefast.ride_fast_backend.model.User;
+import com.ridefast.ride_fast_backend.model.MyUser;
 
 public interface RideService {
-  Ride requestRide(RideRequest rideRequest, User user) throws UserException;
+  Ride requestRide(RideRequest rideRequest, MyUser user) throws UserException;
 
-  Ride createRide(User user, Driver nearestDriver, double pickupLatitude, double pickupLongitude,
+  Ride createRide(MyUser user, Driver nearestDriver, double pickupLatitude, double pickupLongitude,
       double destinationLatitude, double destinationLongitude, String pickupArea, String destinationArea);
 
   Ride acceptRide(Long rideId) throws ResourceNotFoundException;

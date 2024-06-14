@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.exception.UserException;
 import com.ridefast.ride_fast_backend.model.Ride;
-import com.ridefast.ride_fast_backend.model.User;
+import com.ridefast.ride_fast_backend.model.MyUser;
 import com.ridefast.ride_fast_backend.repository.UserRepository;
 import com.ridefast.ride_fast_backend.service.UserService;
 import com.ridefast.ride_fast_backend.util.JwtTokenHelper;
@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserService {
   private final ModelMapper modelMapper;
 
   @Override
-  public User getRequestedUserProfile(String jwtToken) throws ResourceNotFoundException, UserException {
+  public MyUser getRequestedUserProfile(String jwtToken) throws ResourceNotFoundException, UserException {
     String email = tokenHelper.getUsernameFromToken(jwtToken);
-    User user = null;
+    MyUser user = null;
     if (usereRepository.findByEmail(email).isPresent())
       user = usereRepository.findByEmail(email).get();
     if (user != null)
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User getUserById(Long userId) throws ResourceNotFoundException {
+  public MyUser getUserById(Long userId) throws ResourceNotFoundException {
     return usereRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
   }
 

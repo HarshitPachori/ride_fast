@@ -21,7 +21,7 @@ import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.exception.UserException;
 import com.ridefast.ride_fast_backend.model.Driver;
 import com.ridefast.ride_fast_backend.model.RefreshToken;
-import com.ridefast.ride_fast_backend.model.User;
+import com.ridefast.ride_fast_backend.model.MyUser;
 import com.ridefast.ride_fast_backend.repository.UserRepository;
 import com.ridefast.ride_fast_backend.service.AuthService;
 import com.ridefast.ride_fast_backend.service.CustomUserDetailsService;
@@ -54,11 +54,11 @@ public class AuthServiceImpl implements AuthService {
 
     String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-    User createdUser = modelMapper.map(request, User.class);
+    MyUser createdUser = modelMapper.map(request, MyUser.class);
     createdUser.setPassword(encodedPassword);
     createdUser.setRole(UserRole.NORMAL_USER);
 
-    User savedUser = userRepository.save(createdUser);
+    MyUser savedUser = userRepository.save(createdUser);
 
     UserResponse userResponse = modelMapper.map(savedUser, UserResponse.class);
     return userResponse;

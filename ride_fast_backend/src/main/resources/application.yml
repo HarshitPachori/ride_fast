@@ -3,12 +3,15 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://sql.freedb.tech:3306/freedb_ride_fast_db
-    username: freedb_harshit
-    password: V4tbcHtnK7aw*FT
+    # url: jdbc:mysql://localhost:3306/ride_fast_db?createDatabaseIfNotExist=true
+    # username: root
+    # password: mysql
+    url: jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?user=postgres.mpdtafocfwffptvrdruq&password=KzpsKLu8.@qpJgT
+
   jpa:
     hibernate:
       ddl-auto: update
+    
     show-sql: true
     properties:
       format_sql: true

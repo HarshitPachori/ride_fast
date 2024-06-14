@@ -27,7 +27,7 @@ public class RefreshToken {
 
   @ManyToOne
   @JoinColumn(name = "user_id")
-  private User user;
+  private MyUser user;
 
   @ManyToOne
   @JoinColumn(name = "driver_id")

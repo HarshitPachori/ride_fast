@@ -13,7 +13,7 @@ import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.exception.UserException;
 import com.ridefast.ride_fast_backend.model.Driver;
 import com.ridefast.ride_fast_backend.model.Ride;
-import com.ridefast.ride_fast_backend.model.User;
+import com.ridefast.ride_fast_backend.model.MyUser;
 import com.ridefast.ride_fast_backend.repository.DriverRepository;
 import com.ridefast.ride_fast_backend.repository.RideRepository;
 import com.ridefast.ride_fast_backend.service.CalculatorService;
@@ -32,7 +32,7 @@ public class RideServiceImpl implements RideService {
   private final DriverRepository driverRepository;
 
   @Override
-  public Ride requestRide(RideRequest request, User user) throws UserException {
+  public Ride requestRide(RideRequest request, MyUser user) throws UserException {
     double pickupLatitude = request.getPickupLatitude();
     double pickupLongitude = request.getPickupLongitude();
     double destinationLatitude = request.getDestinationLatitude();
@@ -55,7 +55,7 @@ public class RideServiceImpl implements RideService {
   }
 
   @Override
-  public Ride createRide(User user, Driver nearestDriver, double pickupLatitude, double pickupLongitude,
+  public Ride createRide(MyUser user, Driver nearestDriver, double pickupLatitude, double pickupLongitude,
       double destinationLatitude, double destinationLongitude, String pickupArea, String destinationArea) {
 
     Ride ride = Ride.builder()

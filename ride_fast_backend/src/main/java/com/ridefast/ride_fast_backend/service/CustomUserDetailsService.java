@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.ridefast.ride_fast_backend.model.Driver;
-import com.ridefast.ride_fast_backend.model.User;
+import com.ridefast.ride_fast_backend.model.MyUser;
 import com.ridefast.ride_fast_backend.repository.DriverRepository;
 import com.ridefast.ride_fast_backend.repository.UserRepository;
 
@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findByEmail(username).orElse(null);
+    MyUser user = userRepository.findByEmail(username).orElse(null);
     if (user != null)
      return buildUserDetails(user.getEmail(), user.getPassword());
     Driver driver = driverRepository.findByEmail(username).orElse(null);

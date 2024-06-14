@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - ./ride_fast_backend/**
 jobs:
   build-deploy:
     name: Build and Deploy Spring Boot application

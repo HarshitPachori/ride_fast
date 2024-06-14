@@ -16,7 +16,7 @@ import com.ridefast.ride_fast_backend.dto.UserResponse;
 import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.exception.UserException;
 import com.ridefast.ride_fast_backend.model.Ride;
-import com.ridefast.ride_fast_backend.model.User;
+import com.ridefast.ride_fast_backend.model.MyUser;
 import com.ridefast.ride_fast_backend.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class UserController {
 
   @GetMapping("/{userId}")
   public ResponseEntity<UserResponse> findUserByIdHandler(@PathVariable Long userId) throws ResourceNotFoundException {
-    User user = userService.getUserById(userId);
+    MyUser user = userService.getUserById(userId);
     UserResponse response = modelMapper.map(user, UserResponse.class);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
@@ -39,7 +39,7 @@ public class UserController {
   @GetMapping("/profile")
   public ResponseEntity<UserResponse> getRequestedUserProfileHandler(@RequestHeader("Authorization") String jwtToken)
       throws ResourceNotFoundException, UserException {
-    User user = userService.getRequestedUserProfile(jwtToken);
+    MyUser user = userService.getRequestedUserProfile(jwtToken);
     UserResponse response = modelMapper.map(user, UserResponse.class);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
@@ -47,7 +47,7 @@ public class UserController {
   @GetMapping("/rides/completed")
   public ResponseEntity<List<RideDto>> rideCompletedHandler(@RequestHeader("Authorization") String jwtToken)
       throws ResourceNotFoundException, UserException {
-    User user = userService.getRequestedUserProfile(jwtToken);
+    MyUser user = userService.getRequestedUserProfile(jwtToken);
     List<Ride> rides = userService.getCompletedRides(user.getId());
     List<RideDto> completedRides = rides.stream().map((ride) -> modelMapper.map(ride, RideDto.class)).toList();
     return new ResponseEntity<>(completedRides, HttpStatus.OK);

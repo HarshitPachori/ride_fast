@@ -9,7 +9,7 @@ import com.ridefast.ride_fast_backend.dto.UserResponse;
 import com.ridefast.ride_fast_backend.enums.RideStatus;
 import com.ridefast.ride_fast_backend.model.Driver;
 import com.ridefast.ride_fast_backend.model.Ride;
-import com.ridefast.ride_fast_backend.model.User;
+import com.ridefast.ride_fast_backend.model.MyUser;
 import com.ridefast.ride_fast_backend.repository.DriverRepository;
 import com.ridefast.ride_fast_backend.repository.RideRepository;
 import com.ridefast.ride_fast_backend.repository.UserRepository;
@@ -59,7 +59,7 @@ public class CompanyController {
 
   @GetMapping("/allUsers")
   public ResponseEntity<List<UserResponse>> getAllUsers(@RequestHeader("Authorization") String jwt) {
-    List<User> allUsers = userRepository.findAll();
+    List<MyUser> allUsers = userRepository.findAll();
     List<UserResponse> list = allUsers.stream().map((user -> modelMapper.map(user, UserResponse.class))).toList();
     return new ResponseEntity<>(list, HttpStatus.OK);
   }

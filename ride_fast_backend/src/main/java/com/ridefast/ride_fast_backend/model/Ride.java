@@ -23,7 +23,7 @@ public class Ride {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
+    private MyUser user;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Driver driver;

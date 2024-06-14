@@ -19,7 +19,7 @@ import com.ridefast.ride_fast_backend.exception.ResourceNotFoundException;
 import com.ridefast.ride_fast_backend.exception.UserException;
 import com.ridefast.ride_fast_backend.model.Driver;
 import com.ridefast.ride_fast_backend.model.Ride;
-import com.ridefast.ride_fast_backend.model.User;
+import com.ridefast.ride_fast_backend.model.MyUser;
 import com.ridefast.ride_fast_backend.service.DriverService;
 import com.ridefast.ride_fast_backend.service.RideService;
 import com.ridefast.ride_fast_backend.service.UserService;
@@ -38,7 +38,7 @@ public class RideController {
   @PostMapping("/request")
   public ResponseEntity<RideDto> userRideRequestHandler(@RequestBody RideRequest request,
       @RequestHeader("Authorization") String jwtToken) throws ResourceNotFoundException, UserException {
-    User user = userService.getRequestedUserProfile(jwtToken);
+    MyUser user = userService.getRequestedUserProfile(jwtToken);
     Ride ride = rideService.requestRide(request, user);
     RideDto rideDto = modelMapper.map(ride, RideDto.class);
     return new ResponseEntity<>(rideDto, HttpStatus.OK);
