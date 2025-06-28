@@ -269,7 +269,7 @@ git clone https://github.com/HarshitPachori/ride_fast.git
 <!-- - ## Postman Collection
 
   - ### [Postman Collection Link](https://restless-moon-499399.postman.co/workspace/New-Team-Workspace~c7722ba8-7049-40b0-97c9-e367daa05b43/collection/23880545-2625be57-f365-488a-934e-4d7a9fe64389?action=share&creator=23880545)   -->
-
+<!--
 - ## Snapshots
 <img src="./snapshots/s1.png" />
 <img src="./snapshots/s2.png" />
@@ -290,3 +290,4 @@ git clone https://github.com/HarshitPachori/ride_fast.git
 <img src="./snapshots/s20.png"/>
 <img src="./snapshots/s21.png"/>
 <img src="./snapshots/s22.png"/>
+-->
